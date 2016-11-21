@@ -1,0 +1,38 @@
+ ./a.r '/home/praveen/Desktop/script/RESULT/30-60-result.log' 
+[1] "abr  Bitrate  1  Inefficieny  0  # change  1 \n"
+[1] "ar  Bitrate  2  Inefficieny  1  # change  0 \n"
+[1] "bb  Bitrate  6  Inefficieny  0  # change  2 \n"
+[1] "bola  Bitrate  0  Inefficieny  0  # change  19 \n"
+[1] "dy  Bitrate  4  Inefficieny  1  # change  0 \n"
+[1] "elastic  Bitrate  0  Inefficieny  18  # change  0 \n"
+[1] "gd  Bitrate  7  Inefficieny  1  # change  2 \n"
+[1] "kama  Bitrate  5  Inefficieny  4  # change  1 \n"
+[1] "ra  Bitrate  3  Inefficieny  3  # change  3 \n"
+null device 
+          1 
+praveen@praveen:~/Desktop/script/RESULT$ ./a.r '/home/praveen/Desktop/script/RESULT/120-result.log' 
+[1] "abr  Bitrate  1  Inefficieny  0  # change  3 \n"
+[1] "ar  Bitrate  5  Inefficieny  0  # change  0 \n"
+[1] "bb2  Bitrate  8  Inefficieny  3  # change  6 \n"
+[1] "bola  Bitrate  0  Inefficieny  0  # change  15 \n"
+[1] "dy  Bitrate  1  Inefficieny  2  # change  0 \n"
+[1] "elastic  Bitrate  6  Inefficieny  20  # change  0 \n"
+[1] "gd  Bitrate  4  Inefficieny  1  # change  4 \n"
+[1] "kama  Bitrate  3  Inefficieny  0  # change  0 \n"
+[1] "ra  Bitrate  0  Inefficieny  2  # change  0 \n"
+null device 
+          1 
+praveen@praveen:~/Desktop/script/RESULT$ ./a.r '/home/praveen/Desktop/script/RESULT/240-result.log' 
+[1] "abr  Bitrate  0  Inefficieny  1  # change  5 \n"
+[1] "ar  Bitrate  5  Inefficieny  0  # change  0 \n"
+[1] "bb  Bitrate  5  Inefficieny  0  # change  13 \n"
+[1] "bola  Bitrate  0  Inefficieny  1  # change  4 \n"
+[1] "dy  Bitrate  2  Inefficieny  0  # change  1 \n"
+[1] "elastic  Bitrate  13  Inefficieny  23  # change  1 \n"
+[1] "gd  Bitrate  2  Inefficieny  0  # change  2 \n"
+[1] "kama  Bitrate  1  Inefficieny  0  # change  0 \n"
+[1] "ra  Bitrate  0  Inefficieny  3  # change  2 \n"
+null device 
+          1 
+praveen@praveen:~/Desktop/script/RESULT$ 
+

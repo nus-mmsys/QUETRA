@@ -1,0 +1,25 @@
+praveen@praveen:~/Desktop/script/RESULT/vs kama$ ./a.r 30-60-result.log 
+[1] "abr  Bitrate  1  Inefficieny  0  # change  1 \n"
+[1] "bb  Bitrate  8  Inefficieny  0  # change  4 \n"
+[1] "bola  Bitrate  1  Inefficieny  0  # change  20 \n"
+[1] "elastic  Bitrate  2  Inefficieny  21  # change  0 \n"
+[1] "kama  Bitrate  16  Inefficieny  7  # change  3 \n"
+null device 
+          1 
+praveen@praveen:~/Desktop/script/RESULT/vs kama$ ./a.r 120-result.log 
+[1] "abr  Bitrate  1  Inefficieny  0  # change  3 \n"
+[1] "bb2  Bitrate  10  Inefficieny  3  # change  8 \n"
+[1] "bola  Bitrate  0  Inefficieny  3  # change  16 \n"
+[1] "elastic  Bitrate  9  Inefficieny  21  # change  0 \n"
+[1] "kama  Bitrate  8  Inefficieny  1  # change  1 \n"
+null device 
+          1 
+praveen@praveen:~/Desktop/script/RESULT/vs kama$ ./a.r 240-result.log 
+[1] "abr  Bitrate  0  Inefficieny  2  # change  5 \n"
+[1] "bb  Bitrate  5  Inefficieny  0  # change  15 \n"
+[1] "bola  Bitrate  1  Inefficieny  2  # change  4 \n"
+[1] "elastic  Bitrate  15  Inefficieny  24  # change  1 \n"
+[1] "kama  Bitrate  7  Inefficieny  0  # change  3 \n"
+null device 
+          1 
+

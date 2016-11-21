@@ -1,0 +1,25 @@
+30-60 
+ abr  Btrate  1  Inefficieny  0  # change  1 
+ bb  Bitrate  8  Inefficieny  1  # change  4 
+ bola  Bitrate  1  Inefficieny  0  # change  20 
+ dy  Bitrate  17  Inefficieny  3  # change  2 
+ elastic  Bitrate  1  Inefficieny  24  # change  1 
+
+       
+120 
+ abr  Bitrate  1  Inefficieny  0  # change  3 
+ bb Bitrate  9  Inefficieny  3  # change  8 
+ bola  Bitrate  0  Inefficieny  3  # change  16 
+ dy  Bitrate  8  Inefficieny  1  # change  1 
+ elastic  Bitrate  10  Inefficieny  21  # change  0 
+
+         
+240 
+ abr  Bitrate  0  Inefficieny  1  # change  5 
+ bb  Bitrate  5  Inefficieny  0  # change  15 
+ bola  Bitrate  1  Inefficieny  2  # change  7 
+ dy  Bitrate  6  Inefficieny  1  # change  0 
+ elastic  Bitrate  16  Inefficieny  24  # change  1 
+
+         
+

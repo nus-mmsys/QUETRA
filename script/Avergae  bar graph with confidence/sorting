@@ -1,0 +1,3 @@
+praveen@praveen:~/Desktop/script/percentile bar graph$ sort  -k1,1   -k3,3  30-60-extended.log >30temp.txt
+praveen@praveen:~/Desktop/script/percentile bar graph$ sort  -k1,1   -k3,3  120-extended.log >120temp.txt
+
