@@ -11,7 +11,7 @@ if (length(args) < 1) {
 
 df <- read.csv(args[1], header = TRUE, sep = " ")
 
-pdf("xk-rho.pdf")
+pdf(paste(args[1], ".pdf", sep=""))
 
 for (k in unique(df$K)) {
     dfk <- subset(df, K == k)
