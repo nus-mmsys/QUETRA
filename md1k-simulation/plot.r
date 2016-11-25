@@ -12,17 +12,15 @@ if (length(args) < 1) {
 df <- read.csv(args[1], header = TRUE, sep = " ")
 
 klist <- unique(df$K)
-bolist <- unique(df$BO)
 
 for (k in klist) {
     dfk <- subset(df, K == k)
-    print(dfk)
-    
-    p <- matplot(dfk$rho, dfk$Xk, group=dfk$BO, type='l') 
+    pdf(paste(k, ".pdf", sep=""))
+    p <- ggplot(data=dfk, 
+		aes(x=rho, 
+		y=Xk, group=BO, 
+		colour=BO)) 
+    p <- p + geom_line() + geom_point()
+    p <- p + ggtitle(paste("K =", k))
+    print(p)
 }
-
-#print(klist)
-#print(bolist)
-
-#print(data)
-
