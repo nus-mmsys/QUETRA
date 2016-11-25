@@ -11,11 +11,10 @@ if (length(args) < 1) {
 
 df <- read.csv(args[1], header = TRUE, sep = " ")
 
-klist <- unique(df$K)
+pdf("xk-rho.pdf")
 
-for (k in klist) {
+for (k in unique(df$K)) {
     dfk <- subset(df, K == k)
-    pdf(paste(k, ".pdf", sep=""))
     p <- ggplot(data=dfk, 
 		aes(x=rho, 
 		y=Xk, group=BO, 
