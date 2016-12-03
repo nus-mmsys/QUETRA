@@ -14,74 +14,78 @@ import matplotlib.pyplot as plt
 # What is the maximum bitrate that can be achieved for a given number of change and what is the buffer occupancy associated with it?
 # If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a valid switch. 
 
-if len(sys.argv) < 2:
-    print("usage: %s <result file> " % sys.argv[0])
-    sys.exit() 
+class OptimalMetric:
 
-f = open(sys.argv[1], 'w')
-f.write('change bitrate buffer\n')
+    def __init__(self):
+        self.period = 30
+        self.r_lst = [1500, 2000, 3000]
+        self.th_lambda_lst = [1700, 1900, 2200, 2500, 2800, 3200]
+        self.steps = self.period * len(self.th_lambda_lst)
 
-period = 30
-r_lst = [1500, 2000, 3000]
-th_lambda_lst = [1700, 1900, 2200, 2500, 2800, 3200]
-th_lst = np.array([], dtype=int)
+    # Generate a list of throughputs with in periods of 30 each having a 
+    # poisson distribution with a lambda in th_lambda_lst
+    def generate_th(self):
+        th_lst = np.array([], dtype=int)
 
-# Generate a list of throughputs with in periods of 30 each having a 
-# poisson distribution with a lambda in th_lambda_lst
+        for th_lambda in self.th_lambda_lst:
+            th_lst = np.concatenate((th_lst, np.random.poisson(th_lambda, self.period)))
+        
+        # Uncomment this part to see the throughput distribution
+        #count, bins, ignored = plt.hist(th_lst)
+        #plt.show()
 
-for th_lambda in th_lambda_lst:
-    th_lst = np.concatenate((th_lst, np.random.poisson(th_lambda, period)))
-
-steps = period * len(th_lambda_lst)
-
-# Uncomment this part to see the throughput distribution
-#count, bins, ignored = plt.hist(th_lst)
-#plt.show()
-
-res_past = {}
-res_curr = {}
-
-for r in r_lst:
-    res_past[r] = {0:{'r':r, 'buf':th_lst[0]/float(r)}} 
-
-# Each step the throughput changes and the bitrate can change or remain the same.
-# Using dynamic programming, this section calculate all path which do not cause underflow
-# and keep the buffer occupancy and accumulated bitrate.
-
-for i in range(1, steps):
-    for r_curr in r_lst:
-        for r_past in r_lst:
-            for p in res_past[r_past].keys():
-                if res_past[r_past][p]['buf'] + th_lst[i]/float(r_curr) - 1 > 0:
-                   c = 0 if r_past == r_curr else 1
-                   if r_curr not in res_curr.keys():
-                       res_curr[r_curr] = {}
-                   if (p+c not in res_curr[r_curr].keys()) or (res_past[r_past][p]['r'] + r_curr > res_curr[r_curr][p+c]['r']):
-                       res_curr[r_curr][p+c] = {}
-                       res_curr[r_curr][p+c]['r'] = res_past[r_past][p]['r'] + r_curr
-                       res_curr[r_curr][p+c]['buf'] = res_past[r_past][p]['buf'] + th_lst[i]/float(r_curr) - 1
-    res_past = res_curr
-    res_curr = {}
+        return th_lst
 
 
-hist = {}
+    def calculate(self):
+        res_past = {}
+        res_curr = {}
 
-# Calculate final results and save them in file with the columns associated with
-# change, bitrate, and buffer occupancy
+        th_lst = self.generate_th()
 
-for i in range(steps):
-    maxr = 0
-    entry = {}
-    for p in res_past.keys():
-        if (i in res_past[p]) and (res_past[p][i]['r'] > maxr):
-            maxr = res_past[p][i]['r']
-            entry = res_past[p][i]
-    if entry:        
-        hist[i] = entry
-        hist[i]['r'] = hist[i]['r']/steps
-        line = str(i) + ' ' + str(hist[i]['r']) + ' ' + str(hist[i]['buf']) + '\n'
-        f.write(line)
+        for r in self.r_lst:
+            res_past[r] = {0:{'r':r, 'buf':th_lst[0]/float(r)}} 
 
-print(hist)
+        # Each step the throughput changes and the bitrate can change or remain the same.
+        # Using dynamic programming, this section calculate all path which do not cause underflow
+        # and keep the buffer occupancy and accumulated bitrate.
 
-f.close()                 
+        for i in range(1, self.steps):
+            for r_curr in self.r_lst:
+                for r_past in self.r_lst:
+                    for p in res_past[r_past].keys():
+                        if res_past[r_past][p]['buf'] + th_lst[i]/float(r_curr) - 1 > 0:
+                            c = 0 if r_past == r_curr else 1
+                            if r_curr not in res_curr.keys():
+                                res_curr[r_curr] = {}
+                            if (p+c not in res_curr[r_curr].keys()) or (res_past[r_past][p]['r'] + r_curr > res_curr[r_curr][p+c]['r']):
+                                res_curr[r_curr][p+c] = {}
+                                res_curr[r_curr][p+c]['r'] = res_past[r_past][p]['r'] + r_curr
+                                res_curr[r_curr][p+c]['buf'] = res_past[r_past][p]['buf'] + th_lst[i]/float(r_curr) - 1
+            res_past = res_curr
+            res_curr = {}
+ 
+        hist = {}
+
+        # Calculate final results and save them in file with the columns associated with
+        # change, bitrate, and buffer occupancy
+        
+        print("change bitrate buffer")
+        for i in range(self.steps):
+            maxr = 0
+            entry = {}
+            for p in res_past.keys():
+                if (i in res_past[p]) and (res_past[p][i]['r'] > maxr):
+                    maxr = res_past[p][i]['r']
+                    entry = res_past[p][i]
+            if entry:        
+                hist[i] = entry
+                hist[i]['r'] = hist[i]['r']/self.steps
+                line = str(i) + ' ' + str(hist[i]['r']) + ' ' + str(hist[i]['buf'])
+                print(line)
+
+
+if __name__ == "__main__":
+    optm = OptimalMetric()
+    optm.calculate()
+
