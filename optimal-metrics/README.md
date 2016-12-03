@@ -10,5 +10,5 @@ If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a
 
 # Usage
 
-  $ python optm.py > exp.csv
-  $ ./plot.r exp.csv
+    $ python optm.py > exp.csv
+    $ ./plot.r exp.csv
