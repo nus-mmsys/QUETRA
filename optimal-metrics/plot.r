@@ -19,7 +19,7 @@ p <- ggplot(data=df,
 	y=change))
  
 p <- p + geom_point()
-p <- p + ggtitle("Maximum bitrate that can be achieved for a certain number of changes")
+p <- p + ggtitle("Maximum bitrate that can be achieved for a given number of changes")
 
 cat(paste("The file", filename, "is successfully generated.\n"))
 
