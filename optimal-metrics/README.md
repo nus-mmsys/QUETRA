@@ -7,3 +7,8 @@ There are a list of bitrates (r) and bitrate can be switched at each time step o
 
 What is the maximum bitrate that can be achieved for a given number of change and what is the buffer occupancy associated with it?
 If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a valid switch. 
+
+# Usage
+
+  $ python optm.py > exp.csv
+  $ ./plot.r exp.csv
