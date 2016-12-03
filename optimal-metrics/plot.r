@@ -11,7 +11,8 @@ if (length(args) < 1) {
 
 df <- read.csv(args[1], header = TRUE, sep = " ")
 
-pdf(paste(args[1], ".pdf", sep=""))
+filename <- paste(args[1], ".pdf", sep="")
+pdf(filename)
 
 p <- ggplot(data=df, 
 	aes(x=bitrate, 
@@ -19,5 +20,7 @@ p <- ggplot(data=df,
  
 p <- p + geom_point()
 p <- p + ggtitle("Maximum bitrate that can be achieved for a certain number of changes")
+
+cat(paste("The file", filename, "is successfully generated.\n"))
 
 print(p)
