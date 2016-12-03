@@ -4,13 +4,15 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
-# problem definition in the context of video streaming rate adaptation:
-# at each step in time, the throuhput (th) changes following the poisson distribution
-# for a short period.
-# there are a list of bitrates (r) and bitrate can be switched at each time step or remain the same.
-# what is the maximum bitrate that can be achieved for any particular number of change and what is the
-# buffer occupancy associated with it.
-# note that a path cannot be considered if it leads to underflow. 
+# Problem definition in the context of video streaming rate adaptation
+
+# At each step in time, the throuhput (th) changes following the poisson distribution for a short period. 
+# For each time window therefore, there will be a different arrival rate.
+
+# There are a list of bitrates (r) and bitrate can be switched at each time step or remain the same.
+
+# What is the maximum bitrate that can be achieved for a given number of change and what is the buffer occupancy associated with it?
+# If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a valid switch. 
 
 if len(sys.argv) < 2:
     print("usage: %s <result file> " % sys.argv[0])
@@ -21,18 +23,18 @@ f.write('change bitrate buffer\n')
 
 period = 30
 r_lst = [1500, 2000, 3000]
-th_max_lst = [1700, 1900, 2200, 2500, 2800, 3200]
+th_lambda_lst = [1700, 1900, 2200, 2500, 2800, 3200]
 th_lst = np.array([], dtype=int)
 
-# generate a list of throughputs with in periods of 30 each having a 
-# poisson distribution with a lambda in th_max_lst
+# Generate a list of throughputs with in periods of 30 each having a 
+# poisson distribution with a lambda in th_lambda_lst
 
-for th_max in th_max_lst:
-    th_lst = np.concatenate((th_lst, np.random.poisson(th_max, period)))
+for th_lambda in th_lambda_lst:
+    th_lst = np.concatenate((th_lst, np.random.poisson(th_lambda, period)))
 
-steps = period * len(th_max_lst)
+steps = period * len(th_lambda_lst)
 
-# uncomment this part to see the throughput distribution
+# Uncomment this part to see the throughput distribution
 #count, bins, ignored = plt.hist(th_lst)
 #plt.show()
 
@@ -43,7 +45,7 @@ for r in r_lst:
     res_past[r] = {0:{'r':r, 'buf':th_lst[0]/float(r)}} 
 
 # Each step the throughput changes and the bitrate can change or remain the same.
-# Using dynamic programming, this calculate all path which do not cause underflow
+# Using dynamic programming, this section calculate all path which do not cause underflow
 # and keep the buffer occupancy and accumulated bitrate.
 
 for i in range(1, steps):
@@ -64,7 +66,7 @@ for i in range(1, steps):
 
 hist = {}
 
-# calculate final results and save them in file with the columns associated with
+# Calculate final results and save them in file with the columns associated with
 # change, bitrate, and buffer occupancy
 
 for i in range(steps):
