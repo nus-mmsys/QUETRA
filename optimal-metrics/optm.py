@@ -16,19 +16,19 @@ import matplotlib.pyplot as plt
 
 class OptimalMetric:
 
-    def __init__(self):
-        self.period = 30
-        self.r_lst = [1500, 2000, 3000]
-        self.th_lambda_lst = [1700, 1900, 2200, 2500, 2800, 3200]
-        self.steps = self.period * len(self.th_lambda_lst)
 
     # Generate a list of throughputs with in periods of 30 each having a 
     # poisson distribution with a lambda in th_lambda_lst
-    def generate_th(self):
-        th_lst = np.array([], dtype=int)
+    def generate_th(self, profile):
 
-        for th_lambda in self.th_lambda_lst:
-            th_lst = np.concatenate((th_lst, np.random.poisson(th_lambda, self.period)))
+        if profile == 'prandom':  
+            self.period = 30
+            self.r_lst = [1500, 2000, 3000]
+            self.th_lambda_lst = [1700, 1900, 2200, 2500, 2800, 3200]
+            self.steps = self.period * len(self.th_lambda_lst)
+            th_lst = np.array([], dtype=int)
+            for th_lambda in self.th_lambda_lst:
+                th_lst = np.concatenate((th_lst, np.random.poisson(th_lambda, self.period)))
         
         # Uncomment this part to see the throughput distribution
         #count, bins, ignored = plt.hist(th_lst)
@@ -37,11 +37,11 @@ class OptimalMetric:
         return th_lst
 
 
-    def calculate(self):
+    def calculate(self, profile):
         res_past = {}
         res_curr = {}
 
-        th_lst = self.generate_th()
+        th_lst = self.generate_th(profile)
 
         for r in self.r_lst:
             res_past[r] = {0:{'r':r, 'buf':th_lst[0]/float(r)}} 
@@ -84,8 +84,10 @@ class OptimalMetric:
                 line = str(i) + ' ' + str(hist[i]['r']) + ' ' + str(hist[i]['buf'])
                 print(line)
 
+        return hist
+
 
 if __name__ == "__main__":
     optm = OptimalMetric()
-    optm.calculate()
+    hist = optm.calculate('prandom')
 
