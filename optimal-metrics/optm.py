@@ -101,22 +101,23 @@ class OptimalMetric:
         # Each step the throughput changes and the bitrate can change or remain the same.
         # Using dynamic programming, this section calculate all path which do not cause underflow
         # and keep the buffer occupancy and accumulated bitrate.
-
         for i in range(1, steps):
+            res_curr = {}
+            for r in r_lst:
+                res_curr[r] = {0:{'r':0, 'buf':0}}
+
             for r_curr in r_lst:
                 for r_past in r_lst:
                     for p in res_past[r_past].keys():
                         if res_past[r_past][p]['buf'] + th_lst[i]/float(r_curr) - 1 > 0:
                             c = 0 if r_past == r_curr else 1
-                            if r_curr not in res_curr.keys():
-                                res_curr[r_curr] = {}
                             if (p+c not in res_curr[r_curr].keys()) or (res_past[r_past][p]['r'] + r_curr > res_curr[r_curr][p+c]['r']):
                                 res_curr[r_curr][p+c] = {}
                                 res_curr[r_curr][p+c]['r'] = res_past[r_past][p]['r'] + r_curr
                                 res_curr[r_curr][p+c]['buf'] = res_past[r_past][p]['buf'] + th_lst[i]/float(r_curr) - 1
+                    
             res_past = res_curr
-            res_curr = {}
- 
+             
         # Calculate final results and save them in file with the columns associated with
         # change, bitrate, and buffer occupancy
         
