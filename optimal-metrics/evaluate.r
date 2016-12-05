@@ -19,10 +19,14 @@ pdf("evaluate.pdf")
 for (p in networkprof) {
     for (t in videoprof) {
         optdata <- read.csv(paste(args[1], "/", p, "-", t, ".csv", sep=""))
-        plt <- ggplot(data=optdata,
+        benchsubdata <- subset(benchdata, network==p & video==t)
+        plt <- ggplot() 
+        plt <- plt + geom_point(data=benchsubdata,
                 aes(x=bitrate,
                 y=change))
-        plt <- plt + geom_point()
+        plt <- plt + geom_point(data=optdata,
+                aes(x=bitrate,
+                y=change))
         plt <- plt + ggtitle(paste(p, "-", t, sep=""))
         print(plt)
        
