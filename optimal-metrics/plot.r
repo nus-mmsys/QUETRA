@@ -9,7 +9,7 @@ if (length(args) < 1) {
   quit()
 }
 
-df <- read.csv(args[1], header = TRUE, sep = " ")
+df <- read.csv(args[1], header = TRUE)
 
 filename <- paste(args[1], ".pdf", sep="")
 pdf(filename)

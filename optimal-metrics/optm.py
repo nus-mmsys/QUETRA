@@ -120,7 +120,7 @@ class OptimalMetric:
         # Calculate final results and save them in file with the columns associated with
         # change, bitrate, and buffer occupancy
         
-        print("change bitrate buffer")
+        print("change, bitrate, buffer")
         for i in range(steps):
             maxr = 0
             entry = {}
@@ -131,7 +131,7 @@ class OptimalMetric:
             if entry:        
                 hist[i] = entry
                 hist[i]['r'] = hist[i]['r']/steps
-                line = str(i) + ' ' + str(hist[i]['r']) + ' ' + str(hist[i]['buf'])
+                line = str(i) + ', ' + str(hist[i]['r']) + ', ' + str(hist[i]['buf'])
                 print(line)
 
         return hist
