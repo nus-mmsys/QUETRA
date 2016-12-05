@@ -5,7 +5,7 @@ library(ggplot2)
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args) < 1) {
-  cat("\nusage: plot.r <file name>\n\n")
+  cat("\nusage: plot.r <optimum result file name>\n\n")
   quit()
 }
 
