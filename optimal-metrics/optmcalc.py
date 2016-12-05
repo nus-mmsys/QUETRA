@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 # What is the maximum bitrate that can be achieved for a given number of change and what is the buffer occupancy associated with it?
 # If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a valid switch. 
 
-class OptimalMetric:
+class OptimalMetricCalc:
 
     def generate_r(self, profile):
 
@@ -145,6 +145,6 @@ if __name__ == "__main__":
         print("       network profiles: prandom, p1, p2, p3, p4")
         print("       video profiles:   t1, t2, t3, t4\n")
         exit()
-    optm = OptimalMetric()
+    optm = OptimalMetricCalc()
     hist = optm.calculate(sys.argv[1], sys.argv[2])
 
