@@ -18,6 +18,8 @@ class OptimalMetric:
 
     def generate_r(self, profile):
 
+        r_lst = []
+
         if profile == 't1':
             r_lst = [1200, 2200, 4100]
         if profile == 't2':
@@ -32,7 +34,7 @@ class OptimalMetric:
             r_lst = [254, 344, 452, 706, 1015, 1460, 2102]
         if profile == 't7':
             r_lst = [315, 722, 1498, 2460, 3413]
-
+        
         return r_lst
 
     # For random profile (prandom) Generate a list of throughputs with in periods of 30 each having a 
@@ -42,6 +44,8 @@ class OptimalMetric:
     def generate_th(self, profile):
 
         th_lst = np.array([], dtype=int)
+        th_init_lst = []
+        period = 0
 
         if profile == 'prandom':  
             period = 30
@@ -69,8 +73,8 @@ class OptimalMetric:
             period = 30        
 
         # Uncomment this part to see the throughput distribution
-        count, bins, ignored = plt.hist(th_lst)
-        plt.show()
+        #count, bins, ignored = plt.hist(th_lst)
+        #plt.show()
 
         steps = period * len(th_init_lst)
 
@@ -80,10 +84,19 @@ class OptimalMetric:
     def calculate(self, nprofile, vprofile):
         res_past = {}
         res_curr = {}
+        hist = {}
 
         [steps, th_lst] = self.generate_th(nprofile)
+        
+        if th_lst.size < 1:
+            print("network profile is not valid.")
+            return hist
 
         r_lst = self.generate_r(vprofile)
+
+        if len(r_lst) < 1:
+            print("video profile is not valid.")
+            return hist
 
         for r in r_lst:
             res_past[r] = {0:{'r':r, 'buf':th_lst[0]/float(r)}} 
@@ -107,8 +120,6 @@ class OptimalMetric:
             res_past = res_curr
             res_curr = {}
  
-        hist = {}
-
         # Calculate final results and save them in file with the columns associated with
         # change, bitrate, and buffer occupancy
         
@@ -130,6 +141,12 @@ class OptimalMetric:
 
 
 if __name__ == "__main__":
+    
+    if (len(sys.argv) < 3):
+        print("\nusage: %s <network profile> <video profile>\n" % sys.argv[0])
+        print("       network profiles: prandom, p1, p2, p3, p4")
+        print("       video profiles:   t1, t2, t3, t4\n")
+        exit()
     optm = OptimalMetric()
-    hist = optm.calculate('p1', 't1')
+    hist = optm.calculate(sys.argv[1], sys.argv[2])
 
