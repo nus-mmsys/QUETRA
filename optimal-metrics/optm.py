@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import os.path
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -43,6 +44,8 @@ class OptimalMetric:
 
     def generate_th(self, profile):
 
+        profile_path = './network-profiles/'
+
         th_lst = np.array([], dtype=int)
 
         if profile == 'prandom':  
@@ -50,25 +53,22 @@ class OptimalMetric:
             th_init_lst = [1700, 1900, 2200, 2500, 2800, 3200]
             for th in th_init_lst:
                 th_lst = np.concatenate((th_lst, np.random.poisson(th, period)))
-        
-        if profile == 'p1':
-            period = 30
-            th_init_lst = [5000, 4000, 3000, 2000, 1500, 2000, 3000, 4000]
-            for th in th_init_lst:
-                for i in range(period):
-                    th_lst = np.append(th_lst, th)
-            
-        if profile == 'p2':
-            period = 30
-            th_init_lst = [1500, 2000, 3000, 4000, 5000, 4000, 3000, 2000]
-            for th in th_init_lst:
-                for i in range(period):
-                    th_lst = np.append(th_lst, th)
+        else:
+            filename = profile_path + profile + '.csv'
+            if not os.path.isfile(filename):
+                return th_lst
+    
+            f = open(filename)
 
-        if profile == 'p3':
-            period = 30
-        if profile == 'p4':
-            period = 30        
+            f.readline()
+            lines = f.readlines()
+            for line in lines:
+                line = line.replace('\n', '')
+                line = line.replace(' ', '')
+                entry = line.split(',')
+                for i in range(int(entry[1])):
+                    th_lst = np.append(th_lst, int(entry[0]))
+            f.close()        
 
         # Uncomment this part to see the throughput distribution
         #count, bins, ignored = plt.hist(th_lst)
