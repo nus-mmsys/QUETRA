@@ -1,4 +1,4 @@
-network, video, method, bitrate, , , change
+network, video, method, bitrate, inefficency , testval , change
 p1, t1, abr, 2616.02, 0.270815, 3.64923, 95
 p1, t1, ar, 3144.05, 0.218952, 3.45893, 73
 p1, t1, bb, 3069.24, 0.29408, 4.30513, 33
