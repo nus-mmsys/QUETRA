@@ -41,26 +41,38 @@ class OptimalMetric:
 
     def generate_th(self, profile):
 
+        th_lst = np.array([], dtype=int)
+
         if profile == 'prandom':  
             period = 30
-            th_lambda_lst = [1700, 1900, 2200, 2500, 2800, 3200]
-            steps = period * len(th_lambda_lst)
-            th_lst = np.array([], dtype=int)
-            for th_lambda in th_lambda_lst:
-                th_lst = np.concatenate((th_lst, np.random.poisson(th_lambda, period)))
+            th_init_lst = [1700, 1900, 2200, 2500, 2800, 3200]
+            for th in th_init_lst:
+                th_lst = np.concatenate((th_lst, np.random.poisson(th, period)))
         
         if profile == 'p1':
             period = 30
+            th_init_lst = [5000, 4000, 3000, 2000, 1500, 2000, 3000, 4000]
+            for th in th_init_lst:
+                for i in range(period):
+                    th_lst = np.append(th_lst, th)
+            
         if profile == 'p2':
             period = 30
+            th_init_lst = [1500, 2000, 3000, 4000, 5000, 4000, 3000, 2000]
+            for th in th_init_lst:
+                for i in range(period):
+                    th_lst = np.append(th_lst, th)
+
         if profile == 'p3':
             period = 30
         if profile == 'p4':
             period = 30        
 
         # Uncomment this part to see the throughput distribution
-        #count, bins, ignored = plt.hist(th_lst)
-        #plt.show()
+        count, bins, ignored = plt.hist(th_lst)
+        plt.show()
+
+        steps = period * len(th_init_lst)
 
         return [steps, th_lst]
 
@@ -119,5 +131,5 @@ class OptimalMetric:
 
 if __name__ == "__main__":
     optm = OptimalMetric()
-    hist = optm.calculate('prandom', 't1')
+    hist = optm.calculate('p1', 't1')
 
