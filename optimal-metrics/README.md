@@ -18,5 +18,5 @@ If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a
 
 ## Example
 
-    $ python optm.py p1 t1 > exp.csv
-    $ ./plot.r exp.csv
+    $ python optm.py p1 t1 > p1-t1.csv
+    $ ./plot.r p1-t1.csv
