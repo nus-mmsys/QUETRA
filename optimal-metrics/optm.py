@@ -16,43 +16,73 @@ import matplotlib.pyplot as plt
 
 class OptimalMetric:
 
+    def generate_r(self, profile):
 
-    # Generate a list of throughputs with in periods of 30 each having a 
+        if profile == 't1':
+            r_lst = [1200, 2200, 4100]
+        if profile == 't2':
+            r_lst = [1622, 2313, 4077]
+        if profile == 't3':
+            r_lst = [1198, 1974, 4103]
+        if profile == 't4':
+            r_lst = [1143, 1795, 4140]
+        if profile == 't5':
+            r_lst = [342, 577, 946, 1784, 2116]
+        if profile == 't6':
+            r_lst = [254, 344, 452, 706, 1015, 1460, 2102]
+        if profile == 't7':
+            r_lst = [315, 722, 1498, 2460, 3413]
+
+        return r_lst
+
+    # For random profile (prandom) Generate a list of throughputs with in periods of 30 each having a 
     # poisson distribution with a lambda in th_lambda_lst
+    # For profiles 1 to 4, it generates throughputs as described in the paper.
+
     def generate_th(self, profile):
 
         if profile == 'prandom':  
-            self.period = 30
-            self.r_lst = [1500, 2000, 3000]
-            self.th_lambda_lst = [1700, 1900, 2200, 2500, 2800, 3200]
-            self.steps = self.period * len(self.th_lambda_lst)
+            period = 30
+            th_lambda_lst = [1700, 1900, 2200, 2500, 2800, 3200]
+            steps = period * len(th_lambda_lst)
             th_lst = np.array([], dtype=int)
-            for th_lambda in self.th_lambda_lst:
-                th_lst = np.concatenate((th_lst, np.random.poisson(th_lambda, self.period)))
+            for th_lambda in th_lambda_lst:
+                th_lst = np.concatenate((th_lst, np.random.poisson(th_lambda, period)))
         
+        if profile == 'p1':
+            period = 30
+        if profile == 'p2':
+            period = 30
+        if profile == 'p3':
+            period = 30
+        if profile == 'p4':
+            period = 30        
+
         # Uncomment this part to see the throughput distribution
         #count, bins, ignored = plt.hist(th_lst)
         #plt.show()
 
-        return th_lst
+        return [steps, th_lst]
 
 
-    def calculate(self, profile):
+    def calculate(self, nprofile, vprofile):
         res_past = {}
         res_curr = {}
 
-        th_lst = self.generate_th(profile)
+        [steps, th_lst] = self.generate_th(nprofile)
 
-        for r in self.r_lst:
+        r_lst = self.generate_r(vprofile)
+
+        for r in r_lst:
             res_past[r] = {0:{'r':r, 'buf':th_lst[0]/float(r)}} 
 
         # Each step the throughput changes and the bitrate can change or remain the same.
         # Using dynamic programming, this section calculate all path which do not cause underflow
         # and keep the buffer occupancy and accumulated bitrate.
 
-        for i in range(1, self.steps):
-            for r_curr in self.r_lst:
-                for r_past in self.r_lst:
+        for i in range(1, steps):
+            for r_curr in r_lst:
+                for r_past in r_lst:
                     for p in res_past[r_past].keys():
                         if res_past[r_past][p]['buf'] + th_lst[i]/float(r_curr) - 1 > 0:
                             c = 0 if r_past == r_curr else 1
@@ -71,7 +101,7 @@ class OptimalMetric:
         # change, bitrate, and buffer occupancy
         
         print("change bitrate buffer")
-        for i in range(self.steps):
+        for i in range(steps):
             maxr = 0
             entry = {}
             for p in res_past.keys():
@@ -80,7 +110,7 @@ class OptimalMetric:
                     entry = res_past[p][i]
             if entry:        
                 hist[i] = entry
-                hist[i]['r'] = hist[i]['r']/self.steps
+                hist[i]['r'] = hist[i]['r']/steps
                 line = str(i) + ' ' + str(hist[i]['r']) + ' ' + str(hist[i]['buf'])
                 print(line)
 
@@ -89,5 +119,5 @@ class OptimalMetric:
 
 if __name__ == "__main__":
     optm = OptimalMetric()
-    hist = optm.calculate('prandom')
+    hist = optm.calculate('prandom', 't1')
 
