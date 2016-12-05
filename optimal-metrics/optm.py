@@ -44,8 +44,6 @@ class OptimalMetric:
     def generate_th(self, profile):
 
         th_lst = np.array([], dtype=int)
-        th_init_lst = []
-        period = 0
 
         if profile == 'prandom':  
             period = 30
@@ -76,9 +74,7 @@ class OptimalMetric:
         #count, bins, ignored = plt.hist(th_lst)
         #plt.show()
 
-        steps = period * len(th_init_lst)
-
-        return [steps, th_lst]
+        return th_lst
 
 
     def calculate(self, nprofile, vprofile):
@@ -86,9 +82,10 @@ class OptimalMetric:
         res_curr = {}
         hist = {}
 
-        [steps, th_lst] = self.generate_th(nprofile)
-        
-        if th_lst.size < 1:
+        th_lst = self.generate_th(nprofile)
+        steps = th_lst.size       
+  
+        if steps < 1:
             print("network profile is not valid.")
             return hist
 
