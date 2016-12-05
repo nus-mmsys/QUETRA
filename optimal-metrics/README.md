@@ -23,4 +23,4 @@ If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a
     $ python optm.py p1 t1 > p1-t1.csv
     $ ./plot.r p1-t1.csv
     
-    $./plotall.r optimum-results
+    $ ./plotall.r optimum-results
