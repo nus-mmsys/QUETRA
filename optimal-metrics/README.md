@@ -14,9 +14,13 @@ If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a
         network profiles: prandom, p1, p2, p3, p4
         video profiles:   t1, t2, t3, t4
 
-    plot.r <file name>
+    plot.r <optimum result file name>
+    
+    evaluate.r <path to optimum results> <benchmark file name>
 
 ## Example
 
     $ python optm.py p1 t1 > p1-t1.csv
     $ ./plot.r p1-t1.csv
+    
+    $ ./evaluate.r optimum-results benchmark-results/exp1.csv
