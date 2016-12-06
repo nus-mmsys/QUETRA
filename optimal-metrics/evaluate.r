@@ -20,7 +20,7 @@ for (p in networkprof) {
     for (t in videoprof) {
         optdata <- read.csv(paste(args[1], "/", p, "-", t, ".csv", sep=""))
         optdata <- optdata[c("bitrate", "change")]
-        benchsubdata <- subset(benchdata, network==p & video==t)
+        benchsubdata <- subset(benchdata, profile==p & sample==t)
         benchsubdata <- benchsubdata[c("bitrate", "change", "method")]
         if (nrow(optdata) > 0) {
             optdata <- cbind(optdata, method="optimum")
