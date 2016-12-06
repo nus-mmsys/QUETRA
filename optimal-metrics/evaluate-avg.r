@@ -17,38 +17,42 @@ filename <- paste(args[2], '.pdf', sep="")
 pdf(filename)
 
 for (t in videoprof) {
-    optsum = data.frame()
-    for (p in networkprof) {
-        optdata <- read.csv(paste(args[1], "/", p, "-", t, ".csv", sep=""))
-        optdata <- optdata[c("bitrate", "change")]
-        optsum <- rbind(optsum, optdata)
-    }
+    
     optmean <- data.frame()
-    optmean <- colMeans(optsum)
-    optmean <- cbind(optmean, method="optimum")
 
-    #print(optmean)
+    # Uncomment for adding optimum
+    #optsum = data.frame()
+    #for (p in networkprof) {
+    #    optdata <- read.csv(paste(args[1], "/", p, "-", t, ".csv", sep=""))
+    #    optdata <- optdata[c("bitrate", "change")]
+    #    optsum <- rbind(optsum, optdata)
+    #}
+    #mean <- colMeans(optsum)
+    #optmean <- data.frame(bitrate=c(mean["bitrate"]),
+    #                      change=c(mean["change"]), 
+    #                      method=c("optimum"))
+
     benchsum <- subset(benchdata, sample==t)
     benchsum <- benchsum[c("bitrate", "change", "method")]
 
-    benchmean <- data.frame()
-    #print(benchsum)
-    for (m in unique(benchsum["method"])) {
-        meanrow <- subset(benchsum, "method"==m)
-        #print(meanrow)
-        #meanrow <- colMeans()
-        #print(meanrow)
-        #benchmean <- rbind(benchmean, meanrow)
+    dt <- optmean
+    methods <- unique(benchsum["method"])
+    for(i in 1:nrow(methods)) {
+        m <- methods[i,][1]
+        row <- subset(benchsum, method==m)
+        mean <- colMeans(row[c("bitrate", "change")])
+        meanrow <- data.frame(bitrate=c(mean["bitrate"]),
+                              change=c(mean["change"]),
+                              method=m)
+        dt <- rbind(dt, meanrow)
     }
-    #print(benchmean)
-    #dt <- rbind(optmean, benchmean)
-    #plt <- ggplot()
-    #plt <- plt + geom_point(data=dt,
-    #        aes(x=bitrate,
-    #        y=change,
-    #        color=method))
-    #plt <- plt + ggtitle(paste(t, sep=""))
-    #print(plt)
+    plt <- ggplot()
+    plt <- plt + geom_point(data=dt,
+            aes(x=bitrate,
+            y=change,
+            color=method))
+    plt <- plt + ggtitle(paste(t, sep=""))
+    print(plt)
 }
 
 cat(paste("The file", filename,"is successfully generated.\n"))
