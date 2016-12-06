@@ -13,8 +13,8 @@ networkprof <- c("p1", "p2", "p3", "p4")
 videoprof <- c("t1", "t2", "t3", "t4", "t5", "t6", "t7")
 
 benchdata <- read.csv(args[2], header = TRUE)
-
-pdf("evaluate.pdf")
+filename <- paste(args[2], '.pdf', sep="")
+pdf(filename)
 
 for (p in networkprof) {
     for (t in videoprof) {
@@ -39,4 +39,4 @@ for (p in networkprof) {
     }
 }
 
-cat(paste("The file evaluate.pdf is successfully generated.\n"))
+cat(paste("The file", filename,"is successfully generated.\n"))
