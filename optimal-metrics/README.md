@@ -17,6 +17,8 @@ If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a
     optmplot.r <optimal result file name>
     
     evaluate.r <benchmark file name> [<path to optimal results>]
+    
+    evaluate-avgp.r <benchmark file name>
 
 ## Example
 
@@ -24,3 +26,5 @@ If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a
     $ ./optmplot.r p1-t1.csv
     
     $ ./evaluate.r benchmark-results/120.csv optimal-results
+    
+    $ ./evaluate-avgp.r benchmark-results/120.csv
