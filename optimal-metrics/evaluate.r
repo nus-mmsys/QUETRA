@@ -22,6 +22,8 @@ pdf(filename)
 networkprof <- unique(benchdata[["profile"]])
 videosample <- unique(benchdata[["sample"]])
 
+# Filter by method
+#methods <- c("gd", "kama", "qlast", "bola", "bb", "elastic")
 
 for (p in networkprof) {
     for (t in videosample) {
@@ -30,8 +32,12 @@ for (p in networkprof) {
             optdata <- read.csv(paste(optimalpath, "/", p, "-", t, ".csv", sep=""))
             optdata <- optdata[c("bitrate", "change")]
         }
-
+        
         benchsubdata <- subset(benchdata, profile==p & sample==t)
+
+        # Filter by method
+        #benchsubdata <- subset(benchsubdata, method %in% methods)
+
         benchsubdata <- benchsubdata[c("bitrate", "change", "method")]
 
         if (nrow(optdata) > 0) {
