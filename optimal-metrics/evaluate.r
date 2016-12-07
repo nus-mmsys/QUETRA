@@ -4,13 +4,19 @@ library(ggplot2)
 
 args <- commandArgs(trailingOnly=TRUE)
 
-if (length(args) < 2) {
-  cat("\nusage: evaluate.r <path to optimal results> <benchmark file name>\n\n")
-  quit()
+if (length(args) < 1) {
+    cat("\nusage: evaluate.r <benchmark file name> [<path to optimal results>]\n\n")
+    quit()
 }
 
-benchdata <- read.csv(args[2], header = TRUE)
-filename <- paste(args[2], '.pdf', sep="")
+optimalpath <- ""
+optdata <- data.frame()
+if (length(args) == 2) {
+    optimalpath <- args[2]  
+}
+
+benchdata <- read.csv(args[1], header = TRUE)
+filename <- paste(args[1], '.pdf', sep="")
 pdf(filename)
 
 networkprof <- unique(benchdata[["profile"]])
@@ -19,10 +25,15 @@ videosample <- unique(benchdata[["sample"]])
 
 for (p in networkprof) {
     for (t in videosample) {
-        optdata <- read.csv(paste(args[1], "/", p, "-", t, ".csv", sep=""))
-        optdata <- optdata[c("bitrate", "change")]
+
+        if (optimalpath != "") {
+            optdata <- read.csv(paste(optimalpath, "/", p, "-", t, ".csv", sep=""))
+            optdata <- optdata[c("bitrate", "change")]
+        }
+
         benchsubdata <- subset(benchdata, profile==p & sample==t)
         benchsubdata <- benchsubdata[c("bitrate", "change", "method")]
+
         if (nrow(optdata) > 0) {
             optdata <- cbind(optdata, method="optimal")
             dt <- rbind(optdata, benchsubdata)
