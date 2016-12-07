@@ -5,11 +5,11 @@ library(ggplot2)
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args) < 1) {
-  cat("usage: plot.r <file name>\n")
+  cat("\nusage: optmplot.r <optimum result file name>\n\n")
   quit()
 }
 
-df <- read.csv(args[1], header = TRUE, sep = " ")
+df <- read.csv(args[1], header = TRUE)
 
 filename <- paste(args[1], ".pdf", sep="")
 pdf(filename)

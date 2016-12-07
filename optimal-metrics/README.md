@@ -10,5 +10,17 @@ If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a
 
 # Usage
 
-    $ python optm.py > exp.csv
-    $ ./plot.r exp.csv
+    optmcalc.py <network profile> <video profile>
+        network profiles: prandom, p1, p2, p3, p4
+        video profiles:   t1, t2, t3, t4
+
+    optmplot.r <optimum result file name>
+    
+    evaluate.r <path to optimum results> <benchmark file name>
+
+## Example
+
+    $ python optmcalc.py p1 t1 > p1-t1.csv
+    $ ./optmplot.r p1-t1.csv
+    
+    $ ./evaluate.r optimum-results benchmark-results/exp1.csv
