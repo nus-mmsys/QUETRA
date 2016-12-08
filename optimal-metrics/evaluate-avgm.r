@@ -40,6 +40,7 @@ plt <- plt + geom_point(data=dt,
                            y=metricy,
                            color=method))
 
+plt <- plt + xlab(metricx) + ylab(metricy)
 plt <- plt + ggtitle("all profiles and samples")
 print(plt)
 
