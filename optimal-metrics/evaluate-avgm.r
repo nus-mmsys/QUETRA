@@ -26,14 +26,10 @@ if (! (metricy %in% colnames(benchdata))) {
     quit()
 } 
 
-pdf(filename)
-
 methods <- unique(benchdata[["method"]])
 #methods <- c("gd", "kama", "qlast", "bola", "bb", "elastic")
 
-
 dt <- data.frame()
-
 for (m in methods) {
 
     row <- subset(benchdata, method==m)
@@ -45,7 +41,8 @@ for (m in methods) {
                               method=m)
     dt <- rbind(dt, meanrow)
 }
-#print(dt)
+
+pdf(filename)
 plt <- ggplot()
 plt <- plt + geom_point(data=dt,
                        aes(x=metricx,
