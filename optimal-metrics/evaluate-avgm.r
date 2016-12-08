@@ -15,10 +15,22 @@ metricy <- args[2]
 
 benchdata <- read.csv(args[3], header = TRUE)
 filename <- paste(args[3], '-avgm.pdf', sep="")
+
+if (! (metricx %in% colnames(benchdata))) {
+    cat(paste(metricx,"is not a column name\n"))
+    quit()
+} 
+
+if (! (metricy %in% colnames(benchdata))) {
+    cat(paste(metricy,"is not a column name\n"))
+    quit()
+} 
+
 pdf(filename)
 
 methods <- unique(benchdata[["method"]])
 #methods <- c("gd", "kama", "qlast", "bola", "bb", "elastic")
+
 
 dt <- data.frame()
 
