@@ -5,7 +5,7 @@ library(ggplot2)
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args) < 1) {
-    cat("\nusage: evaluate.r <benchmark file name> [<path to optimal results>]\n\n")
+    cat("\nusage: evaluate-all.r <benchmark file name> [<path to optimal results>]\n\n")
     quit()
 }
 
