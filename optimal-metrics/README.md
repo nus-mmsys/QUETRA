@@ -16,17 +16,16 @@ If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a
 
     optmplot.r <optimal result file name>
     
-    evaluate.r <benchmark file name> [<path to optimal results>]
+    evaluate-all.r <benchmark file name> [<path to optimal results>]
     
-    evaluate-avgp.r <benchmark file name>
-    evaluate-avgm.r <benchmark file name>
+    evaluate-avgm.r <metric x> <metric y> <benchmark file name>
+                    metrics: bitrate, change, stall, numStall, avgStall
 
 ## Example
 
     $ python optmcalc.py p1 t1 > p1-t1.csv
     $ ./optmplot.r p1-t1.csv
     
-    $ ./evaluate.r benchmark-results/120.csv optimal-results
+    $ ./evaluate-all.r benchmark-results/120.csv optimal-results
     
-    $ ./evaluate-avgp.r benchmark-results/120.csv
-    $ ./evaluate-avgm.r benchmark-results/120.csv
+    $ ./evaluate-avgm.r bitrate avgStall benchmark-results/120.csv
