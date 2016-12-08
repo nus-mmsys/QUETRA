@@ -4,13 +4,17 @@ library(ggplot2)
 
 args <- commandArgs(trailingOnly=TRUE)
 
-if (length(args) < 1) {
-  cat("\nusage: evaluate-avgm.r <benchmark file name>\n\n")
+if (length(args) < 3) {
+  cat("\nusage: evaluate-avgm.r <metric x> <metric y> <benchmark file name>\n")
+  cat("       metrics: bitrate, change, stall, numStall, avgStall\n\n")
   quit()
 }
 
-benchdata <- read.csv(args[1], header = TRUE)
-filename <- paste(args[1], '-avgm.pdf', sep="")
+metricx <- args[1]
+metricy <- args[2]
+
+benchdata <- read.csv(args[3], header = TRUE)
+filename <- paste(args[3], '-avgm.pdf', sep="")
 pdf(filename)
 
 methods <- unique(benchdata[["method"]])
@@ -21,19 +25,19 @@ dt <- data.frame()
 for (m in methods) {
 
     row <- subset(benchdata, method==m)
-    row <- row[c("bitrate", "change", "method")]
+    row <- row[c(metricx, metricy, "method")]
 
-    mean <- colMeans(row[c("bitrate", "change")])
-    meanrow <- data.frame(bitrate=c(mean["bitrate"]),
-                              change=c(mean["change"]),
+    mean <- colMeans(row[c(metricx, metricy)])
+    meanrow <- data.frame(metricx=c(mean[metricx]),
+                              metricy=c(mean[metricy]),
                               method=m)
     dt <- rbind(dt, meanrow)
 }
-
+print(dt)
 plt <- ggplot()
 plt <- plt + geom_point(data=dt,
-                       aes(x=bitrate,
-                           y=change,
+                       aes(x=metricx,
+                           y=metricy,
                            color=method))
 
 plt <- plt + ggtitle("all profiles and samples")
