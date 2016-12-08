@@ -33,7 +33,7 @@ for (m in methods) {
                               method=m)
     dt <- rbind(dt, meanrow)
 }
-print(dt)
+#print(dt)
 plt <- ggplot()
 plt <- plt + geom_point(data=dt,
                        aes(x=metricx,
