@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 # What is the maximum bitrate that can be achieved for a given number of change and what is the buffer occupancy associated with it?
 # If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a valid switch. 
 
-class OptimalMetricCalc:
+class DashSimulator:
 
     def generate_r(self, profile):
 
@@ -42,7 +42,8 @@ class OptimalMetricCalc:
     # poisson distribution with a lambda in th_lambda_lst
     # For profiles 1 to 4, it generates throughputs as described in the paper.
 
-    def generate_th(self, profile):
+    # generate the list of throughput for double of video duration
+    def generate_th(self, profile, video_dur):
 
         profile_path = './network-profiles/'
 
@@ -77,9 +78,8 @@ class OptimalMetricCalc:
         return th_lst
 
 
-    def calculate(self, nprofile, vprofile):
-        res_past = {}
-        res_curr = {}
+    def calculate(self, nprofile, vprofile, method):
+
         hist = {}
 
         th_lst = self.generate_th(nprofile)
@@ -95,56 +95,32 @@ class OptimalMetricCalc:
             print("video profile is not valid.")
             return hist
 
-        for r in r_lst:
-            res_past[r] = {0:{'r':r, 'buf':th_lst[0]/float(r)}} 
-
+        # buf = 0
+        # stall = 0
+        
         # Each step the throughput changes and the bitrate can change or remain the same.
         # Using dynamic programming, this section calculate all path which do not cause underflow
         # and keep the buffer occupancy and accumulated bitrate.
         for i in range(1, steps):
-            res_curr = {}
-            for r in r_lst:
-                res_curr[r] = {0:{'r':0, 'buf':0}}
-
-            for r_curr in r_lst:
-                for r_past in r_lst:
-                    for p in res_past[r_past].keys():
-                        if res_past[r_past][p]['buf'] + th_lst[i]/float(r_curr) - 1 > 0:
-                            c = 0 if r_past == r_curr else 1
-                            if (p+c not in res_curr[r_curr].keys()) or (res_past[r_past][p]['r'] + r_curr > res_curr[r_curr][p+c]['r']):
-                                res_curr[r_curr][p+c] = {}
-                                res_curr[r_curr][p+c]['r'] = res_past[r_past][p]['r'] + r_curr
-                                res_curr[r_curr][p+c]['buf'] = res_past[r_past][p]['buf'] + th_lst[i]/float(r_curr) - 1
-                    
-            res_past = res_curr
-             
-        # Calculate final results and save them in file with the columns associated with
-        # change, bitrate, and buffer occupancy
-        
-        print("change,bitrate,buffer")
-        for i in range(steps):
-            maxr = 0
-            entry = {}
-            for p in res_past.keys():
-                if (i in res_past[p]) and (res_past[p][i]['r'] > maxr):
-                    maxr = res_past[p][i]['r']
-                    entry = res_past[p][i]
-            if entry:        
-                hist[i] = entry
-                hist[i]['r'] = hist[i]['r']/steps
-                line = str(i) + ',' + str(hist[i]['r']) + ',' + str(hist[i]['buf'])
-                print(line)
-
-        return hist
+            
+            # for r in r_lst:
+                # ...
+                # chosen_r = method['']()
+            
+            # but = buf + (th_lst[i] / chosen_r) - 1
+            # if buf < 0 :
+            #    buf = 0
+            #    stall += 1
+           
 
 
 if __name__ == "__main__":
     
     if (len(sys.argv) < 3):
-        print("\nusage: %s <network profile> <video profile>\n" % sys.argv[0])
+        print("\nusage: %s <method> <network profile> <video profile>\n" % sys.argv[0])
+        print("       method:           bba, elastic, quetra, abr, bola")
         print("       network profiles: prandom, p1, p2, p3, p4")
         print("       video profiles:   t1, t2, t3, t4\n")
         exit()
-    optm = OptimalMetricCalc()
-    hist = optm.calculate(sys.argv[1], sys.argv[2])
-
+    optm = DashSimulator()
+    hist = optm.calculate(sys.argv[1], sys.argv[2], sys.arg[3])
