@@ -4,16 +4,7 @@ import sys
 import os.path
 import numpy as np
 import matplotlib.pyplot as plt
-
-# Problem definition in the context of video streaming rate adaptation
-
-# At each step in time, the throuhput (th) changes following the poisson distribution for a short period. 
-# For each time window therefore, there will be a different arrival rate.
-
-# There are a list of bitrates (r) and bitrate can be switched at each time step or remain the same.
-
-# What is the maximum bitrate that can be achieved for a given number of change and what is the buffer occupancy associated with it?
-# If choosing a bitrate leads to buffer underflow, it will not be conbsidered as a valid switch. 
+from rafactory import rafactory as raf
 
 class DashSimulator:
 
@@ -43,7 +34,8 @@ class DashSimulator:
     # For profiles 1 to 4, it generates throughputs as described in the paper.
 
     # generate the list of throughput for double of video duration
-    def generate_th(self, profile, video_dur):
+    # TODO: video duration should be added as argument
+    def generate_th(self, profile):
 
         profile_path = './network-profiles/'
 
@@ -78,7 +70,7 @@ class DashSimulator:
         return th_lst
 
 
-    def calculate(self, nprofile, vprofile, method):
+    def calculate(self, method, nprofile, vprofile, buff_cap):
 
         hist = {}
 
@@ -95,32 +87,37 @@ class DashSimulator:
             print("video profile is not valid.")
             return hist
 
-        # buf = 0
-        # stall = 0
-        
-        # Each step the throughput changes and the bitrate can change or remain the same.
-        # Using dynamic programming, this section calculate all path which do not cause underflow
-        # and keep the buffer occupancy and accumulated bitrate.
-        for i in range(1, steps):
-            
-            # for r in r_lst:
-                # ...
-                # chosen_r = method['']()
-            
-            # but = buf + (th_lst[i] / chosen_r) - 1
-            # if buf < 0 :
-            #    buf = 0
-            #    stall += 1
-           
+        raa = raf.create(method, r_lst, buff_cap)
 
+        if raa is None:
+            print("method is not valid.")
+
+        cur_buff = 0.0
+        num_stall = 0
+        chosen_r_lst = []
+        for i in range(1, steps):
+            chosen_r = raa.choose(cur_buff, th_lst[i])
+
+            chosen_r_lst.append(chosen_r)
+            cur_buff = cur_buff + (float(th_lst[i]) / float(chosen_r)) - 1
+            
+            if cur_buff < 0 :
+                cur_buff = 0
+                num_stall += 1
+           
+        bitrate_avg = sum(chosen_r_lst) / float(len(chosen_r_lst))
+        print("profile,sample,method,bitrate,numStall")
+        row = nprofile + "," + vprofile + "," + method + "," + str(bitrate_avg) + "," + str(num_stall)
+        print(row)
+        
 
 if __name__ == "__main__":
     
-    if (len(sys.argv) < 3):
-        print("\nusage: %s <method> <network profile> <video profile>\n" % sys.argv[0])
+    if (len(sys.argv) < 4):
+        print("\nusage: %s <method> <network profile> <video profile> <buffer capacity>\n" % sys.argv[0])
         print("       method:           bba, elastic, quetra, abr, bola")
         print("       network profiles: prandom, p1, p2, p3, p4")
         print("       video profiles:   t1, t2, t3, t4\n")
         exit()
     optm = DashSimulator()
-    hist = optm.calculate(sys.argv[1], sys.argv[2], sys.arg[3])
+    hist = optm.calculate(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
