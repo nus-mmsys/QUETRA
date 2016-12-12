@@ -91,6 +91,7 @@ class DashSimulator:
 
         if raa is None:
             print("method is not valid.")
+            return hist
 
         cur_buff = 0.0
         num_stall = 0
