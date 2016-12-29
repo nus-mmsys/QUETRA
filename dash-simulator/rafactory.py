@@ -1,4 +1,5 @@
 import bufferbased as bba
+import quetra as quetra
 
 class RateAdaptationFactory:
 
@@ -6,6 +7,8 @@ class RateAdaptationFactory:
 
         if method == 'bba':
             return bba.BufferBased(r_lst, buff_cap)
+        elif method == 'quetra':
+            return quetra.Quetra(r_lst, buff_cap)
         else:
             return None
 

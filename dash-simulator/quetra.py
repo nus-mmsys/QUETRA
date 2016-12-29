@@ -20,7 +20,7 @@ class Quetra:
        self.low_res = self.low_res 
       
        if cur_buff <= self.low_res:
-           return self.r_lst[0] 
+           return 0 
 
 
        if self.buff_cap == 30 :
@@ -56,7 +56,7 @@ class Quetra:
 	    else :
                slackIndex = int(math.floor((rho-0.5)/0.01))
 	       self.buff_array[i] = self.slack[slackIndex]
-	    print(str(i)+" slack   "+str(self.buff_array[i]))
+	    #print(str(i)+" slack   "+str(self.buff_array[i]))
 
        self.min_index = 0
        minDiff = math.fabs(cur_buff-self.buff_array[self.min_index]) 
@@ -68,8 +68,20 @@ class Quetra:
 	   	
        if self.buff_array[self.min_index] == self.buff_cap and self.buff_array[self.min_index] == self.buff_array[0] : 
 	   self.min_index=0
-           print("err")
-       print("min_index  "+str(self.min_index)+" slack  "+ str(self.buff_array[self.min_index])+"buffer  "+ str(cur_buff) )  
+           #print("err")
+       #print("min_index  "+str(self.min_index)+" slack  "+ str(self.buff_array[self.min_index])+"buffer  "+ str(cur_buff) )  
+
+       #index = self.min_index
+       #br = self.r_lst[self.min_index]
+       #return self.r_lst[self.min_index]
+       #print("min_index  "+str(self.min_index))
+       return self.min_index
 
 
-       return self.r_lst[self.min_index]
+
+
+
+
+
+
+
