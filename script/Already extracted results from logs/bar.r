@@ -21,7 +21,7 @@ if (length(args) < 2) {
 
 metricx <- args[1]
 #metricy <- args[2]
-metricSize<-"stall"
+
 
 benchdata <- read.csv(args[2], header = TRUE)
 filename <- paste(args[2], '-q-vs-all-stall.pdf', sep="")
