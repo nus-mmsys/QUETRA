@@ -4,8 +4,8 @@ export text
 export STALL
 echo "file: $text"
 STALL="$(grep -o 'Stalling' $text | wc -l)"
-#echo $STALL
-
+ #echo $STALL
+ 
 sed -i.bak '/videoBitrate/!d' $text
 awk -F'"' '$0=$2' $text > testfile.tmp && mv testfile.tmp $text
 sed -i.bak  $text -e 's/^[^:]*:/:/' 
