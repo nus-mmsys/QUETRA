@@ -156,7 +156,7 @@ for(i in 1:aa)
   } else if(strsplit(paste(dt$method), " ")[i]=="kama"){
      Ib[i] =paste("KAMA")
   } else if(strsplit(paste(dt$method), " ")[i]=="qlast"){
-     Ib[i] =paste("Last Throughput")
+     Ib[i] =paste("QUETRA Last Throughput")
   } else if(strsplit(paste(dt$method), " ")[i]=="ra"){
      Ib[i] =paste("Fixed Alpha")
   } else if(strsplit(paste(dt$method), " ")[i]=="bola"){
