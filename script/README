@@ -1,7 +1,7 @@
 Files/Folders and their operations :
 
 /script/script.sh 	: 	Preprocess all the log files in the current directory and call zqoe.sh and t.r
-/script/zqoe.sh 	: 	Take the prepocessed from script.sh and put the extracted data in /script/RESULT/result.log
+/script/zqoe.sh 	: 	Take the prepocessed from script.sh and put the extracted data in /script/RESULT/result.log. Please adjust max buufer parameter "Bf" for calculation of overflow.
 /script/t.sh 	: 	Dreaws buffer occupancy and Throughput, bitrate varaiation graph fro all the log files in current director. The output graphs are created in /script/graph/ directory
 /script/experimental log files : Raw log files for all buufer conditions 	:	30/60, 120 and 240 second. The file are named like : profile-sample-algorith. Eg. p1-t1-quetra
 /script/experimental log files/<Buffer Capacity> / quetra vs others 	:	 Raw log files of quetra_lastTh and and existing algorithms (bba,bola,elastic,abr)
