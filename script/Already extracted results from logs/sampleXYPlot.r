@@ -207,7 +207,7 @@ plt <- plt +ylim(min(dt$metricy),max(dt$metricy))
 #plt <- plt+opts(legend.background = theme_rect(col = 0))
 
 #plt <- plt + ggtitle("Buffer: 120")
-plt <- plt +  theme(legend.position="none")
+#plt <- plt +  theme(legend.position="none")
 
 plt <- plt + xlab(ylab) + ylab(xlab)
 
