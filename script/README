@@ -19,5 +19,5 @@ Files/Folders and their operations :
 /script/Already extracted results from logs/evaluate-avgm.r 	:	Dummy. For personal reference.
 /script/Already extracted results from logs/evaluate-avgp.r    :	Dummy. For personal reference.
 /script/Already extracted results from logs/parameter.r 	: 	Doesn't take input. Headerless log file are hardcoded input. Generate bargraph for 3 buffer conditions for a parameter averaged across all saples and network profile. Parameter can be modified by modfying the the column number anf ylable inside file.
-
+/script/Already extracted results from logs/allxy.r   :  Takes csv file as argument. Generate all bitrate-change xyplot (without any averaging)
 
