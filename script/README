@@ -2,7 +2,7 @@
 
 script.sh : Takes name of the output file as command line argument. Call t.r, proces.sh and csvCreate to extract the all the raw browser logs from current directory and create <output file name>.csv file in /RESULT directory and graphs fro throughput-bitrate and buffer occupancy in /Graph directory
 
-/RPlot script : Directory contains already extrated csv file for differnt buffer occupancy and R script file to compare results.
+/RPlot script : Directory contains already extrated csv file for differnt buffer capacity and R script file to compare results.
 
 /RPlot script/allBar.r : Takes csv data file as command line input and genrerate bar graphs for all parameters in different network profile and samples combination.
 
