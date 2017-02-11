@@ -1,0 +1,19 @@
+/experimental log files/<Buffer Capacity> :Directory containg raw log files from web browser for different buffer capacity. Naming convention : <NetworkProfile><Sample><Algorithm>.log. Please note that buffer capacity is hard coded into logs.
+
+script.sh : Takes name of the output file as command line argument. Call t.r, proces.sh and csvCreate to extract the all the raw browser logs from current directory and create <output file name>.csv file in /RESULT directory and graphs fro throughput-bitrate and buffer occupancy in /Graph directory
+
+/RPlot script : Directory contains already extrated csv file for differnt buffer occupancy and R script file to compare results.
+
+/RPlot script/allBar.r : Takes csv data file as command line input and genrerate bar graphs for all parameters in different network profile and samples combination.
+
+/RPlot script/avgBar.r : Takes matric, output file name and csv data file as command line input and genrerate bar graphs for the parameter averaged across all profiles and samples
+
+/RPlot script/allxy.r : Takes x-matric,y-matrics, size-matrics, output file name and csv data file as command line input and genrerate differnt x-y plots for all network profile and samples.
+
+/RPlot script/avgXYPlot.r : Takes x-matric,y-matrics, size-matrics, output file name and csv data file as command line input and genrerate differnt x-y plots averaged across all network profile and samples.
+
+/RPlot script/sample.r : Takes x-matric,y-matrics, size-matrics, sample number and csv data file as command line input and genrerate differnt x-y plots for a sample averaged across all network profile.
+
+/RPlot script/legend.r : Takes x-matric,y-matrics, size-matrics, output file name and csv data file as command line input and genrerate legend only for the plot.
+
+/RPlot script/colorRampPaletteAlpha.R : R script file to support color pallets. 
