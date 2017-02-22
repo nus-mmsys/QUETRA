@@ -2,7 +2,7 @@
 
 Here are the folders and their content:
 
-/experimental log files/<Buffer Capacity> :Directory containg raw log files from web browser for different buffer capacity. Naming convention : <NetworkProfile> - <Sample> - <Algorithm>.log. Please note that buffer capacity is hard coded into logs.
+/experimental log files/"<Buffer Capacity>" :Directory containg raw log files from web browser for different buffer capacity. Naming convention : <NetworkProfile> - <Sample> - <Algorithm>.log. Please note that buffer capacity is hard coded into logs.
 
 /RPlot_script : Directory contains already extrated csv file for differnt buffer capacity and R script file to generate graphs and compare the results.
 
