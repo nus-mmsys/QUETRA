@@ -36,5 +36,5 @@ plotGraph.sh : Takes path of the "event directory" as command line argument. It 
 
 /RPlot_script/colorRampPaletteAlpha.R : R script file to support color pallets. 
 
-# How to Run
+
 
