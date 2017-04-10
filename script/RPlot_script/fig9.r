@@ -163,6 +163,8 @@ for(i in 1:aa)
 print( Ib[,1])
 print(dt$metricy)
 print(dt$metricx)
+print((dt$metricy-dt$metricy[dt$method  == "quetra"])/dt$metricy[dt$method  == "quetra"])
+print((dt$metricx-dt$metricx[dt$method  == "quetra"])/dt$metricx[dt$method  == "quetra"])
 
 
 dt$method <- as.character(dt$method )
