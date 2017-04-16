@@ -31,9 +31,9 @@ metricx <- args[1]
 
 filename <- paste(args[1], '.pdf', sep="")
 
-benchdataI <- read.csv('30-60-qoe.csv', header = TRUE)
-benchdataII <- read.csv('120-qoe.csv', header = TRUE)
-benchdataIII <- read.csv('240-qoe.csv', header = TRUE)
+benchdataI <- read.csv('30-60.csv', header = TRUE)
+benchdataII <- read.csv('120.csv', header = TRUE)
+benchdataIII <- read.csv('240.csv', header = TRUE)
 
 if (! (metricx %in% colnames(benchdataI))) {
     cat(paste(metricx,"is not a parameter name\n"))
