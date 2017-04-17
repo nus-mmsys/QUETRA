@@ -125,8 +125,8 @@ plot_x_y <- function(metricx, metricy, csv_input_filename) {
 					shape = 43,
 					stroke = 15) +
     facet_grid(. ~ bufSizeF)
-  plt <- plt +scale_y_continuous( breaks=seq(1500, 2500, by=250),limit=c(1500,2500))
-  plt <- plt +scale_x_continuous( breaks=seq(0, 60, by=20),limit=c(0,62))
+ # plt <- plt +scale_y_continuous( breaks=seq(1500, 2500, by=250),limit=c(1500,2500))
+  #plt <- plt +scale_x_continuous( breaks=seq(0, 60, by=20),limit=c(0,62))
   plt <- plt + xlab(xlab) + ylab(labels[[metricy]])
 
 	plt <- plt + theme_quetra()
