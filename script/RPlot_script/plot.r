@@ -30,14 +30,14 @@ labels[['qoe']] <- "QoE"
 methodname <- new.env()
 methodname[['abr']] <- "dash.js ABR  "
 methodname[['elastic']] <- "ELASTIC  "
-methodname[['ar']] <- "QUETRA (Avg Throughput)"
+methodname[['ar']] <- "Avg Th"
 methodname[['bba']] <- "BBA  "
-methodname[['quetra']] <- "QUETRA  "
+methodname[['quetra']] <- "QUETRA"
 methodname[['bola']] <- "BOLA  "
-methodname[['dy']] <- "QUETRA (Low Pass EMA)"
-methodname[['gd']] <- "QUETRA (Gradient-based EMA)"
-methodname[['kama']] <- "QUETRA (KAMA)"
-methodname[['ra']] <- "QUETRA (EMA)"
+methodname[['dy']] <- "Low Pass EMA"
+methodname[['gd']] <- "Gradient EMA"
+methodname[['kama']] <- "KAMA"
+methodname[['ra']] <- "EMA"
 
 theme_quetra <- function(base_size = 12, base_family = "Helvetica"){
   axis_label_size <- 42
@@ -56,7 +56,7 @@ theme_quetra <- function(base_size = 12, base_family = "Helvetica"){
       legend.key.size = unit(50, 'pt'),
       #panel.grid = element_blank(),
       panel.border = element_rect(fill = NA, colour = "black", size=1),
-      panel.spacing.x = unit(0,'pt'),
+      panel.spacing.x = unit(-5,'pt'),
       panel.background = element_rect(fill = "white", colour = "black"),
       strip.background = element_rect(fill = "white", colour= "white"),
       strip.text.x = element_text(size = axis_label_size,  margin=margin(40,0,40,0)),
@@ -83,14 +83,9 @@ check_valid_column <- function(colname, input_data) {
 # of changes vs. average bitrate.  The second row plots number of stalls vs.
 # stall duration.
 
-plot_x_y <- function(metricx, metricy, csv_input_filename) {
-  input_data <- read.csv(csv_input_filename, header = TRUE)
-  check_valid_column(metricx, input_data)
-  check_valid_column(metricy, input_data)
-
-  dt <- aggregate(.~method+bufSize, data=input_data, mean)
-  methods <- c("abr", "bba", "quetra", "bola", "elastic")
-  dt <- subset(dt, dt$method %in% methods)
+plot_x_y <- function(dt, metricx, metricy, methods) {
+  check_valid_column(metricx, dt)
+  check_valid_column(metricy, dt)
   dt$method <- as.character(dt$method)
   for (m in methods) {
     dt$method[dt$method == m] <- methodname[[m]]
@@ -116,7 +111,7 @@ plot_x_y <- function(metricx, metricy, csv_input_filename) {
   plt <- plt + geom_point(
 					size = 12,
 					stroke = 3) +
-		scale_shape_manual(values = c(0, 6, 1, 5,2)) +
+		scale_shape_manual(values = c(0, 6, 1, 5, 2, 11)) +
     facet_grid(. ~ bufSizeF)
 
   plt <- plt + geom_point(
@@ -129,15 +124,53 @@ plot_x_y <- function(metricx, metricy, csv_input_filename) {
 
 	plt <- plt + theme_quetra()
 	plt <- plt + scale_colour_brewer(palette = "Set1")
+	plt <- plt + guides(shape=guide_legend(nrow = 1))
 
 	return(plt)
 }
 
+# Setup two sets of graphs
+smoothing_methods <- c("ar", "ra", "quetra", "kama", "gd", "dy")
+adaptation_methods <- c("abr", "bba", "quetra", "bola", "elastic")
+
+# Read input file
+input_data <- read.csv("results.csv", header = TRUE)
+
+# Agreegate the mean over all profiles and all samples
+mean_dt <- aggregate(.~method+bufSize, data=input_data, mean)
+dt <- subset(mean_dt, mean_dt$method %in% adaptation_methods)
+
 pdf("fig4a.pdf",width=22, height=10)
 print(
-  plot_x_y('change','bitrate',"results.csv") + theme(legend.position = "none")
+  plot_x_y(dt, 'change','bitrate', adaptation_methods) + theme(legend.position = "none") + 
+  	scale_y_continuous(breaks=seq(1500, 2400, by=300), limit=c(1500, 2400)) +
+  	scale_x_continuous(breaks=seq(0, 200, by=50), limit=c(0, 220)) 
   )
 pdf("fig4b.pdf",width=22, height=12)
 print(
-  plot_x_y('stall','numStall',"results.csv")
+  plot_x_y(dt, 'stall','numStall', adaptation_methods) +
+  	scale_y_continuous(breaks=seq(2.5, 5, by=0.5), limit=c(2.4, 5)) +
+  	scale_x_continuous(breaks=seq(5, 20, by=5), limit=c(4.5, 21)) 
+  )
+
+mean_dt <- aggregate(.~method+bufSize+sample, data=input_data, mean)
+dt <- subset(mean_dt, mean_dt$sample == 't5' & mean_dt$method %in%
+adaptation_methods)
+pdf("fig5.pdf",width=22, height=12)
+print(
+  plot_x_y(dt, 'change','bitrate', adaptation_methods)+
+  	scale_y_continuous(breaks=seq(1200, 2200, by=250), limit=c(1200, 2200)) +
+  	scale_x_continuous(breaks=seq(5, 35, by=10), limit=c(0, 35)) 
+  )
+
+mean_dt <- aggregate(.~method+bufSize, data=input_data, mean)
+dt <- subset(mean_dt, mean_dt$method %in% smoothing_methods)
+methodname[['quetra']] <- "Last Th"
+
+pdf("fig7a.pdf",width=22, height=12)
+print(
+  plot_x_y(dt, 'change','bitrate', smoothing_methods) +
+  	scale_colour_brewer(palette = "Dark2") +
+  	scale_y_continuous(breaks=seq(1500, 2500, by=250), limit=c(1500, 2500)) +
+  	scale_x_continuous(breaks=seq(0, 60, by=20), limit=c(0, 65))
   )
