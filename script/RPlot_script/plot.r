@@ -55,7 +55,7 @@ theme_quetra <- function(base_size = 12, base_family = "Helvetica"){
       legend.spacing = unit(4, "cm"),
       legend.key.size = unit(50, 'pt'),
       #panel.grid = element_blank(),
-      panel.border = element_rect(fill = NA, colour = "black", size=1),
+      panel.border = element_rect(fill = NA, colour = "black", size=3),
       panel.spacing.x = unit(-5,'pt'),
       panel.background = element_rect(fill = "white", colour = "black"),
       strip.background = element_rect(fill = "white", colour= "white"),
@@ -156,10 +156,10 @@ print(
 mean_dt <- aggregate(.~method+bufSize+sample, data=input_data, mean)
 dt <- subset(mean_dt, mean_dt$sample == 't5' & mean_dt$method %in%
 adaptation_methods)
-pdf("fig5.pdf",width=22, height=12)
+pdf("fig7.pdf",width=22, height=12)
 print(
   plot_x_y(dt, 'change','bitrate', adaptation_methods)+
-  	scale_y_continuous(breaks=seq(1200, 2200, by=250), limit=c(1200, 2200)) +
+  	scale_y_continuous(breaks=seq(1200, 2200, by=250), limit=c(1150, 2200)) +
   	scale_x_continuous(breaks=seq(5, 35, by=10), limit=c(0, 35)) 
   )
 
@@ -167,7 +167,7 @@ mean_dt <- aggregate(.~method+bufSize, data=input_data, mean)
 dt <- subset(mean_dt, mean_dt$method %in% smoothing_methods)
 methodname[['quetra']] <- "Last Th"
 
-pdf("fig7a.pdf",width=22, height=12)
+pdf("fig9a.pdf",width=22, height=12)
 print(
   plot_x_y(dt, 'change','bitrate', smoothing_methods) +
   	scale_colour_brewer(palette = "Dark2") +
