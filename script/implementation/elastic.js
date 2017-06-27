@@ -178,5 +178,5 @@ function Quetra(config) {
 
 }
 
-RunningAvg.__dashjs_factory_name = 'RunningAvg';
-export default FactoryMaker.getClassFactory(RunningAvg);
+ELASTIC.__dashjs_factory_name = 'ELASTIC';
+export default FactoryMaker.getClassFactory(ELASTIC);
