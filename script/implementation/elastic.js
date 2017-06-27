@@ -12,7 +12,7 @@ import BufferLevel from '../../vo/metrics/BufferLevel.js';
 import MediaPlayerModel from '../../models/MediaPlayerModel.js';
 
 
-function Quetra(config) {
+function ELASTIC(config) {
 
     let context = this.context; //Default 
     let log = Debug(context).getInstance().log; //To write debug log 
