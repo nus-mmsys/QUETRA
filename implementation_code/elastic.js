@@ -78,7 +78,7 @@ function ELASTIC(config) {
         let fragmentDuration = trackInfo.fragmentDuration;
         let mediaPlayerModel = MediaPlayerModel(context).getInstance();
         let playbackController = PlaybackController(context).getInstance();
-        let kp = 0.01;/*kp value i.e 0.01 is same as in paper. ki is modified as 0.0001 to vaois negative values of bitrate*/
+        let kp = 0.01;/*kp value i.e 0.01 is same as in paper. ki is modified as 0.0001 to avoid negative values of bitrate*/
         let ki = 0.0001;
         if (duration >= mediaPlayerModel.getLongFormContentDurationThreshold()) {
             bufferMax = mediaPlayerModel.getBufferTimeAtTopQualityLongForm();
