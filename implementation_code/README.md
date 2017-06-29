@@ -1,4 +1,4 @@
-* Algorithm files are prepared for implementation in Dash.js v2.1.1 but can be implemented in different versions as well. 
+* Algorithm files are prepared for implementation in `Dash.js v2.1.1` but can be implemented in different versions as well. 
 * The default varibale provided by Dash.js are not kept intact. 
 * These files can be implemented in the same way as BolaRule.js in the folder *dash.js/src/streaming/rules/abr/*
 * Buffer capacity can be changed in `MediaPlayerModel.js` file located at *dash.js/src/streaming/models/* by changing **BUFFER_TIME_AT_TOP_QUALITY_LONG_FORM** (when content is more than 10 minutes), **BUFFER_TO_KEEP**(when content is less than 10 minutes)
