@@ -7,7 +7,7 @@ import Debug from '../../../core/Debug.js';
 import DashAdapter from '../../../dash/DashAdapter.js';
 import MediaPlayerModel from '../../models/MediaPlayerModel.js';
 
-function Quetra(config) {
+function BBA(config) {
 
     let context = this.context; //Default
     let log = Debug(context).getInstance().log; //To write debug log
@@ -224,5 +224,5 @@ av, //last value of throughput
 
 }
 
-Quetra.__dashjs_factory_name = 'Quetra';
-export default FactoryMaker.getClassFactory(Quetra);
+BBA.__dashjs_factory_name = 'BBA';
+export default FactoryMaker.getClassFactory(BBA);
