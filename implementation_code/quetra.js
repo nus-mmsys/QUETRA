@@ -96,7 +96,7 @@ function Quetra(config) {
             av = (arrThroughput[0] + arrThroughput[1]) / 2;
         }
         else {
-            av = (alpha * av) + ( (1 - alpha) * arrThroughput[lenThroughput - 1]);
+            av = av = (av * (1 - alpha)) + (alpha * arrThroughput[lenThroughput - 1]);
         }
         return (av);
     }
