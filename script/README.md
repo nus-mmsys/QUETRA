@@ -43,7 +43,7 @@ plotGraph.sh : Takes path of the "event directory" as command line argument. It 
 * Figure 8: Duration of buffer full for different methods
 * Figure 9: (X,Y)-plot of changes in representation versus bitrate for different throughput prediction methods
 
-/RPlot_script/plotCombinedBufferOcuupancy.r : Takes three event files and plot a glrah with their buffer occupancy on the same scale. The graph corresponds to following figure in yhe paper.
+/RPlot_script/plotCombinedBufferOcuupancy.r : Takes three event files and plot a glrah with their buffer occupancy on the same scale. The graph corresponds to following figure in the paper.
 * Figure 2: Example of a case where buffer occupancy in QUETRA converges to K/2.
 
 
