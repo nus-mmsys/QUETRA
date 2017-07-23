@@ -10,6 +10,10 @@
 library(ggplot2)
 library(gridExtra)
 library(RColorBrewer)
+library(lattice)
+library(directlabels)
+library(latticeExtra)
+library(stringr)
 source ('colorRampPaletteAlpha.R')
 library(scales)
 args <- commandArgs(trailingOnly=TRUE)
@@ -20,15 +24,15 @@ labels <- new.env()
 labels[['bitrate']] <- "Average Bitrate (kbps)"
 labels[['change']] <- "Changes in Representation"
 labels[['ineff']] <- "Inefficiency"
-labels[['stall']] <- "Stall Duration (s)"
+labels[['stall']] <- "Stall Duration (Sec)"
 labels[['numStall']] <- "Number of Stalls"
-labels[['avgStall']] <- "Average Stall Duration (s)"
-labels[['overflow']] <- "Buffer Overflow Duration (s)"
+labels[['avgStall']] <- "Average Stall Duration (Sec)"
+labels[['overflow']] <- "Buffer Full Duration (Sec)"
 labels[['numOverflow']] <- "Number of Buffer Overflow"
-labels[['qoe']] <- "QoE"
+labels[['qoe']] <- "QoE ( x100,000)"
 
 methodname <- new.env()
-methodname[['abr']] <- "dash.js ABR  "
+methodname[['abr']] <- "Dash.js ABR  "
 methodname[['elastic']] <- "ELASTIC  "
 methodname[['ar']] <- "Avg Th"
 methodname[['bba']] <- "BBA  "
@@ -129,9 +133,65 @@ plot_x_y <- function(dt, metricx, metricy, methods) {
 	return(plt)
 }
 
+plotBar <- function(dt, metric, methods) {
+         check_valid_column(metric, dt) 
+         dt$method <- as.character(dt$method)
+         target<-adaptation_methods
+         for (m in methods) {
+          dt$method[dt$method == m] <- methodname[[m]]
+           for(i in 1:length(target))
+           {
+             if(target[i] == m){ target[i] <- methodname[[m]]}  
+           }
+
+         }
+        dt$method <- as.factor(dt$method)
+	dtI <- subset(dt, dt$bufSize == '30/60' )
+	dtII <- subset(dt, dt$bufSize == '120' )
+	dtIII <- subset(dt, dt$bufSize == '240')
+        dat <- cbind(dtI[metric],dtII[metric],dtIII[metric])
+        
+       	colnames(dat) <- c("30/60", "120" ,"240")
+	rownames(dat) <- dtI$method
+        dat <- dat[with(dat, target), ] #reoreder rows
+        angle1 <- rep(c(45,45,135), length.out=3)
+	angle2 <- rep(c(45,135,135), length.out=3)
+	density1 <- seq(6,12,length.out=3)
+	density2 <- seq(6,12,length.out=3)
+       
+       
+       if(metric == 'qoe'){ 
+         dat<-dat/100000
+         ylim<-c(-0.2,5)
+         inset<-c(0,-0.1)
+       }
+        
+       if(metric == 'overflow'){ 
+         ylim<-c(-3,80)
+         inset<-c(0,-0.1)
+       } 
+
+	par(mar=c(4,8,7.5,2) )
+
+	angle1 <- rep(c(45,45,135), length.out=3)
+	angle2 <- rep(c(45,135,135), length.out=3)
+	density1 <- seq(6,12,length.out=3)
+	density2 <- seq(6,12,length.out=3)
+	barplot(t(dat), main="",beside=TRUE, col=c("darkblue","red","green"),ylab="", ylim=ylim,cex.names=3,cex.axis=3, angle=angle2, density=density2 ) 
+	barplot(t(dat), main="",beside=TRUE,add=TRUE, col=c("darkblue","red","darkgreen"),ylab="",cex.names=3,cex.axis=3, angle=angle1, density=density1 ) 
+	title(ylab=labels[[metric]], line=5, cex.lab=3, font = 1)
+	par(xpd=TRUE)
+	legend("topright",legend = c("30/60","120","240"), ncol = 3,  fill =c("darkblue","red","darkgreen"),cex = 3, title="Buffer Capacity (Sec)",  bty = "n",inset=inset,angle=angle1, density=density1)
+	par(bg="transparent")
+	legend("topright",legend = c("30/60","120","240"), ncol = 3,  fill =c("darkblue","red","darkgreen"),cex = 3, title="Buffer Capacity (Sec)",  bty = "n",inset=inset,angle=angle2, density=density2)
+
+
+
+}
+
 # Setup two sets of graphs
 smoothing_methods <- c("ar", "ra", "quetra", "kama", "gd", "dy")
-adaptation_methods <- c("abr", "bba", "quetra", "bola", "elastic")
+adaptation_methods <- c("abr", "bola", "elastic", "bba", "quetra" )
 
 # Read input file
 input_data <- read.csv("results.csv", header = TRUE)
@@ -167,10 +227,21 @@ mean_dt <- aggregate(.~method+bufSize, data=input_data, mean)
 dt <- subset(mean_dt, mean_dt$method %in% smoothing_methods)
 methodname[['quetra']] <- "Last Th"
 
-pdf("fig9a.pdf",width=22, height=12)
+pdf("fig9.pdf",width=22, height=12)
 print(
   plot_x_y(dt, 'change','bitrate', smoothing_methods) +
   	scale_colour_brewer(palette = "Dark2") +
   	scale_y_continuous(breaks=seq(1500, 2500, by=250), limit=c(1500, 2500)) +
   	scale_x_continuous(breaks=seq(0, 60, by=20), limit=c(0, 65))
   )
+
+mean_dt <- aggregate(.~method+bufSize, data=input_data, mean)
+dt <- subset(mean_dt, mean_dt$method %in% adaptation_methods)
+methodname[['quetra']] <- "QUETRA"
+pdf("fig5.pdf",width=22, height=14)
+plotBar(dt,'qoe',adaptation_methods)
+pdf("fig8.pdf",width=22, height=16)
+plotBar(dt,'overflow',adaptation_methods)
+
+
+
