@@ -34,8 +34,7 @@ plotGraph.sh : Takes path of the "event directory" as command line argument. It 
 
 /RPlot_script/legend.r : Takes x-matric,y-matrics, size-matrics, output file name and csv data file as command line input and genrerate legend only for the plot.
 
-/RPlot_script/plot.r : Plots following figure used in QUETRA: A Queuing Theory Approach to DASH Rate Adaptation
-* Figure 2: Example of a case where buffer occupancy in QUETRA converges to K/2.
+/RPlot_script/plot.r : Plots following figure used in **QUETRA: A Queuing Theory Approach to DASH Rate Adaptation**
 * Figure 4: (X,Y)-plot of changes in representation versus bitrate, and stall duration versus number of stalls for different algorithms.
 * Figure 5: QoE for different methods
 * Figure 7: (X,Y)-plot of changes in representation versus bi-
@@ -44,6 +43,8 @@ trate for video V5
 * Figure 9: (X,Y)-plot of changes in representation versus bi-
 trate for different throughput prediction methods
 
+/RPlot_script/plotCombinedBufferOcuupancy.r : Takes three event files and plot a glrah with their buffer occupancy on the same scale. The graph corresponds to following figure in yhe paper.
+* Figure 2: Example of a case where buffer occupancy in QUETRA converges to K/2.
 /RPlot_script/colorRampPaletteAlpha.R : R script file to support color pallets. 
 
 
