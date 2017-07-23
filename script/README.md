@@ -41,7 +41,7 @@ plotGraph.sh : Takes path of the "event directory" as command line argument. It 
 * Figure 7: (X,Y)-plot of changes in representation versus bi-
 trate for video V5
 * Figure 8: Duration of buffer full for different methods
-Figure 9: (X,Y)-plot of changes in representation versus bi-
+* Figure 9: (X,Y)-plot of changes in representation versus bi-
 trate for different throughput prediction methods
 
 /RPlot_script/colorRampPaletteAlpha.R : R script file to support color pallets. 
