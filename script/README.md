@@ -15,6 +15,12 @@ parseEvent.sh : Takes name of the "output" file as command line argument. Parse 
 
 plotGraph.sh : Takes path of the "event directory" as command line argument. It calls the /RPlot_script/plotBitrateThroughput.r and /RPlot_script/plotBufferOccupancy.r to generate buffer occupancy and Bitrate-Throughput graph in /graph/"event directory" _"graph"
 
+## ```Extracted logs```
+/RPlot_script/30-60.csv : Output in the form of 'profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe' for buffer capacity of 30/60s.
+/RPlot_script/120.csv : Output in the form of 'profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe' for buffer capacity of 120s.
+/RPlot_script/240.csv : Output in the form of 'profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe' for buffer capacity of 240s.
+/RPlot_script/result.csv : Output in the form of 'profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe,bufSize' for all buffer capacities.
+
 
 ## ```R-scripts```
 
