@@ -39,11 +39,9 @@ plotGraph.sh : Takes path of the "event directory" as command line argument. It 
 /RPlot_script/plot.r : Plots following figure used in **QUETRA: A Queuing Theory Approach to DASH Rate Adaptation**
 * Figure 4: (X,Y)-plot of changes in representation versus bitrate, and stall duration versus number of stalls for different algorithms.
 * Figure 5: QoE for different methods
-* Figure 7: (X,Y)-plot of changes in representation versus bi-
-trate for video V5
+* Figure 7: (X,Y)-plot of changes in representation versus bitrate for video V5
 * Figure 8: Duration of buffer full for different methods
-* Figure 9: (X,Y)-plot of changes in representation versus bi-
-trate for different throughput prediction methods
+* Figure 9: (X,Y)-plot of changes in representation versus bitrate for different throughput prediction methods
 
 /RPlot_script/plotCombinedBufferOcuupancy.r : Takes three event files and plot a glrah with their buffer occupancy on the same scale. The graph corresponds to following figure in yhe paper.
 * Figure 2: Example of a case where buffer occupancy in QUETRA converges to K/2.
