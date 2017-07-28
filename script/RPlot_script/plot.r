@@ -88,49 +88,27 @@ check_valid_column <- function(colname, input_data) {
 # stall duration.
 
 plot_x_y <- function(dt, metricx, metricy, methods) {
-  check_valid_column(metricx, dt)
-  check_valid_column(metricy, dt)
-  dt$method <- as.character(dt$method)
-  for (m in methods) {
-    dt$method[dt$method == m] <- methodname[[m]]
-  }
-  dt$method <- as.factor(dt$method)
-
-  colnames(dt)[colnames(dt)==metricx] <- 'metricx'
-  colnames(dt)[colnames(dt)==metricy] <- 'metricy'
-
-  dt$bufSizeF <- factor(dt$bufSize, levels=c('30/60','120','240'), labels=c("30/60 s", "120 s", "240 s"))
-
-  ylab <- labels[[metricy]]
-  xlab <- labels[[metricx]]
-
-  plt <- ggplot(dt, aes(
-					x = metricx,
-					y = metricy,
-					color = method,
-					shape = method
-          ))
-
-  # plot the shapes
-  plt <- plt + geom_point(
-					size = 12,
-					stroke = 3) +
-		scale_shape_manual(values = c(0, 6, 1, 5, 2, 11)) +
-    facet_grid(. ~ bufSizeF)
-
-  plt <- plt + geom_point(
-					size = 6,
-					shape = 43,
-					stroke = 15) +
-    facet_grid(. ~ bufSizeF)
-
-  plt <- plt + xlab(xlab) + ylab(labels[[metricy]])
-
-	plt <- plt + theme_quetra()
-	plt <- plt + scale_colour_brewer(palette = "Set1")
-	plt <- plt + guides(shape=guide_legend(nrow = 1))
-
-	return(plt)
+	 check_valid_column(metricx, dt)
+	 check_valid_column(metricy, dt)
+	 dt$method <- as.character(dt$method)
+	 for (m in methods) {
+	   dt$method[dt$method == m] <- methodname[[m]]
+	 }
+	 dt$method <- as.factor(dt$method)
+	 colnames(dt)[colnames(dt)==metricx] <- 'metricx'
+	 colnames(dt)[colnames(dt)==metricy] <- 'metricy'
+	 dt$bufSizeF <- factor(dt$bufSize, levels=c('30/60','120','240'), labels=c("30/60 s", "120 s", "240 s"))
+	 ylab <- labels[[metricy]]
+	 xlab <- labels[[metricx]]
+	 plt <- ggplot(dt, aes(x = metricx, y = metricy, color = method, shape = method))
+	 # plot the shapes
+	 plt <- plt + geom_point(size = 12, stroke = 3) + scale_shape_manual(values = c(0, 6, 1, 5, 2, 11)) + facet_grid(. ~ bufSizeF)
+	 plt <- plt + geom_point(size = 6, shape = 43, stroke = 15) + facet_grid(. ~ bufSizeF)
+         plt <- plt + xlab(xlab) + ylab(labels[[metricy]])
+	 plt <- plt + theme_quetra()
+	 plt <- plt + scale_colour_brewer(palette = "Set1")
+	 plt <- plt + guides(shape=guide_legend(nrow = 1))
+	 return(plt)
 }
 
 plotBar <- function(dt, metric, methods) {
