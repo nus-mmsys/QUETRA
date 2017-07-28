@@ -83,7 +83,5 @@ END   {
 
 
  
-#awk 'END{print}' $newtext >> RESULT/$opfile
 
-    # if(emos<0){emos=0;}    if($6 != prevBuff)
 
