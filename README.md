@@ -13,7 +13,7 @@ Here are the folders and their content:
 
 parseEvent.sh : Takes name of the "output" file as command line argument. Parse the raw browser log files from current directory into time-event csv file. The time-event  csv file are located inside graph/"output" directory. It also calls evalEvent.sh and csvCreate.sh to extract the informatin from time-event  csv files and create "output file name".csv file in /RESULT directory.  
 
-## ```Extracted logs```
+## Extracted logs
 /RPlot_script/30-60.csv : Output in the form of `profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe` for buffer capacity of 30/60s.
 
 /RPlot_script/120.csv : Output in the form of `profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe` for buffer capacity of 120s.
@@ -39,6 +39,7 @@ parseEvent.sh : Takes name of the "output" file as command line argument. Parse 
 
 ## Implementation Code
 
+* Implementation code is available in code directory. 
 * Algorithm files are prepared for implementation in `Dash.js v2.1.1` but can be implemented in different versions as well. 
 * The default varibale provided by Dash.js are not kept intact. 
 * These files can be implemented in the same way as BolaRule.js in the folder *dash.js/src/streaming/rules/abr/*
