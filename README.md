@@ -2,7 +2,7 @@
 
 Here are the folders and their content:
 
-raw-logs/ :Directory containg raw log files from web browser for different buffer capacity in the correponding sub-directory and script for extracting the results. Lof files aming convention : "NetworkProfile" - "Sample" - "Algorithm".log. Please note that buffer capacity is hard coded into logs.
+raw-logs/ :Directory containg raw log files from web browser for different buffer capacity in the correponding sub-directory and script for extracting the results. Log files naming convention : "NetworkProfile" - "Sample" - "Algorithm".log. Please note that buffer capacity is hard coded into logs.
 
 code/ : Directory containing rate adaptaion logic. 
 
