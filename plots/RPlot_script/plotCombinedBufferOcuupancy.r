@@ -11,12 +11,12 @@ pdf(name1,onefile=TRUE)
 a<-df$timeStamp
 b<-df$bufferLength
 par(mar=c(5, 5,2 ,2))
-matplot(a,b,type='l', xlab="Time (Sec)", ylab="Buffer Occupancy (Sec)",main="", col="darkblue", yaxt='n',xaxt='n',lwd="2", lty=1,cex.axis=1.3, ,cex.axis=2, cex.lab=2, xlim=c(0,600), ylim=c(0,150))
+matplot(a,b,type='l', xlab="Time (Sec)", ylab="Buffer Occupancy (Sec)",main="", col="red", yaxt='n',xaxt='n',lwd="2", lty=1,cex.axis=1.3, ,cex.axis=2, cex.lab=2, xlim=c(0,600), ylim=c(0,150))
 par(new=TRUE)
 df<-df2
 a<-df$timeStamp
 b<-df$bufferLength
-matplot(a,b,type='l',xlim=c(0,600), ylim=c(0,150),xlab=" ",ylab= " ", col="red",lwd="2", lty=1,axes=FALSE)
+matplot(a,b,type='l',xlim=c(0,600), ylim=c(0,150),xlab=" ",ylab= " ", col="darkblue",lwd="2", lty=1,axes=FALSE)
 par(new=TRUE)
 df<-df3
 a<-df$timeStamp
