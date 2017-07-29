@@ -50,7 +50,7 @@ for text in *.log; do
         awk '{print $1","$2","$3","$4","$5","$6","$7}'  $event > testfile.tmp && mv testfile.tmp $event
        
 	
-	./eval_event.sh $event
+	./evalEvent.sh $event
         mv $event graph/$eventDir/
 done
 ./csvCreate.sh RESULT/$opfile
