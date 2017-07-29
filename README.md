@@ -2,29 +2,29 @@
 
 Here are the folders and their content:
 
-raw-logs/ :Directory containg raw log files from web browser for different buffer capacity in the correponding sub-directory and script for extracting the results. Log files naming convention : "NetworkProfile" - "Sample" - "Algorithm".log. Please note that buffer capacity is hard coded into logs.
+`raw-logs/` :Directory containg raw log files from web browser for different buffer capacity in the correponding sub-directory and script for extracting the results. Log files naming convention : "NetworkProfile" - "Sample" - "Algorithm".log. Please note that buffer capacity is hard coded into logs.
 
-code/ : Directory containing rate adaptaion logic. 
+`code/` : Directory containing rate adaptaion logic. 
 
-plots/ : Directory contains already extrated csv file for differnt buffer capacity and R script file to generate graphs and compare the results.
+`plots/` : Directory contains already extrated csv file for differnt buffer capacity and R script file to generate graphs and compare the results.
 
 
 
 ## Browser-logs extraction
 
 
-raw-logs/parseEvent.sh : Takes name of the "output" file as command line argument. Parse the raw browser log files from current directory into time-event csv file. It also calls evalEvent.sh and csvCreate.sh to extract the informatin from time-event  csv files and create "output file name".csv file in /RESULT directory. The time-event  csv file are located inside "event-buffer_occupancy" directory.   
+`raw-logs/parseEvent.sh` : Takes name of the "output" file as command line argument. Parse the raw browser log files from current directory into time-event csv file. It also calls evalEvent.sh and csvCreate.sh to extract the informatin from time-event  csv files and create "output file name".csv file in /RESULT directory. The time-event  csv file are located inside "event-buffer_occupancy" directory.   
 
 
 
 ## R-scripts
 
-/plot/colorRampPaletteAlpha.R : R script file to support color pallets. 
+`/plot/colorRampPaletteAlpha.R` : R script file to support color pallets. 
 
 
-/plot/results.csv : Output in the form of `profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe,bufSize` for all buffer capacities.
+`/plot/results.csv` : Output in the form of `profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe,bufSize` for all buffer capacities.
 
-/plot/plot.r : Plots following figure used in **QUETRA: A Queuing Theory Approach to DASH Rate Adaptation**
+`/plot/plot.r` : Plots following figure used in **QUETRA: A Queuing Theory Approach to DASH Rate Adaptation**
 * Figure 4: (X,Y)-plot of changes in representation versus bitrate, and stall duration versus number of stalls for different algorithms.
 * Figure 5: QoE for different methods
 * Figure 7: (X,Y)-plot of changes in representation versus bitrate for video V5
@@ -36,7 +36,7 @@ raw-logs/parseEvent.sh : Takes name of the "output" file as command line argumen
 
 ## Implementation Code
 
-* Implementation code is available in code directory. 
+* Implementation code is available in `code` directory. 
 * Algorithm files are prepared for implementation in `Dash.js v2.1.1` but can be implemented in different versions as well. 
 * The default varibale provided by Dash.js are not kept intact. 
 * These files can be implemented in the same way as BolaRule.js in the folder *dash.js/src/streaming/rules/abr/*
