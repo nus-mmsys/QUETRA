@@ -8,17 +8,10 @@ Here are the folders and their content:
 
 
 
-## browser-logs extraction
+## Browser-logs extraction
 
 
 parseEvent.sh : Takes name of the "output" file as command line argument. Parse the raw browser log files from current directory into time-event csv file. The time-event  csv file are located inside graph/"output" directory. It also calls evalEvent.sh and csvCreate.sh to extract the informatin from time-event  csv files and create "output file name".csv file in /RESULT directory.  
-
-## Extracted logs
-/RPlot_script/30-60.csv : Output in the form of `profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe` for buffer capacity of 30/60s.
-
-/RPlot_script/120.csv : Output in the form of `profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe` for buffer capacity of 120s.
-
-/RPlot_script/240.csv : Output in the form of `profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe` for buffer capacity of 240s.
 
 /RPlot_script/result.csv : Output in the form of `profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe,bufSize` for all buffer capacities.
 
