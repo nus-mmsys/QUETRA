@@ -31,7 +31,7 @@ raw-logs/parseEvent.sh : Takes name of the "output" file as command line argumen
 * Figure 8: Duration of buffer full for different methods
 * Figure 9: (X,Y)-plot of changes in representation versus bitrate for different throughput prediction methods
 
-/plot/plotCombinedBufferOcuupancy.r : Takes three event files and plot a glrah with their buffer occupancy on the same scale. The graph corresponds to following figure in the paper.
+/plot/plotCombinedBufferOcuupancy.r : Takes three event files and plot a graph with their buffer occupancy on the same scale. The graph corresponds to following figure in the paper.
 * Figure 2: Example of a case where buffer occupancy in QUETRA converges to K/2.
 
 ## Implementation Code
