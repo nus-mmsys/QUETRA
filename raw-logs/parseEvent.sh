@@ -8,16 +8,18 @@ fi
 
 
 mkdir RESULT >/dev/null 2>&1
-mkdir graph >/dev/null 2>&1
 eventDir=${opfile%.*}
 mkdir graph/$eventDir >/dev/null 2>&1
-for text in *.log; do 
+for text in 30-60/*.log 120/*.log 240/*.log ; do 
 	export event
 	export STALL
 	export opfile
 	n=${text%.*}
-        newtext=$n".tmp"
-        event="event-"$n".csv"
+        m=${n%/*}
+        o=${n#*/}
+        mkdir $m"_events" >/dev/null 2>&1
+        newtext=$o".tmp"
+        event="event-"$o".csv"
         status="Playing"
         cp $text $newtext
         text=$newtext
@@ -48,21 +50,13 @@ for text in *.log; do
         awk '{if($5!=0){$6="Arrival"} print $0} '  $event > testfile.tmp && mv testfile.tmp $event
         awk 'BEGIN{print "timeStamp repIndex videoBitrate bufferLength throughput event bufferCapacity"}{print $0}'  $event > testfile.tmp && mv testfile.tmp $event
         awk '{print $1","$2","$3","$4","$5","$6","$7}'  $event > testfile.tmp && mv testfile.tmp $event
-       
-	
-	./eval_event.sh $event
-        mv $event graph/$eventDir/
+       	./evalEvent.sh $event
+        mv $event $m"_events"
+        rm *.tmp
+        rm *.bak
 done
 ./csvCreate.sh RESULT/$opfile
 
-for f1 in *.tmp; do 
-rm $f1
-done
-
-for f2 in *.bak; do 
-rm $f2
-done
 
 
-
-echo "check RESULT and graph directory for output"
+echo "check RESULT and event directory for output"
