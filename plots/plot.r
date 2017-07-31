@@ -34,14 +34,14 @@ labels[['qoe']] <- "QoE ( x100,000)"
 methodname <- new.env()
 methodname[['abr']] <- "Dash.js ABR  "
 methodname[['elastic']] <- "ELASTIC  "
-methodname[['ar']] <- "Avg Th"
+methodname[['qAvgTh']] <- "Avg Th"
 methodname[['bba']] <- "BBA  "
 methodname[['quetra']] <- "QUETRA"
 methodname[['bola']] <- "BOLA  "
-methodname[['dy']] <- "Low Pass EMA"
-methodname[['gd']] <- "Gradient EMA"
-methodname[['kama']] <- "KAMA"
-methodname[['ra']] <- "EMA"
+methodname[['qLowPassEMA']] <- "Low Pass EMA"
+methodname[['qGradientEMA']] <- "Gradient EMA"
+methodname[['qKAMA']] <- "KAMA"
+methodname[['qEMA']] <- "EMA"
 
 theme_quetra <- function(base_size = 12, base_family = "Helvetica"){
   axis_label_size <- 42
@@ -190,7 +190,7 @@ plotBar <- function(dt, metric, methods) {
 }
 
 # Setup two sets of graphs
-smoothing_methods <- c("ar", "ra", "quetra", "kama", "gd", "dy")
+smoothing_methods <- c("qAvgTh", "qEMA", "quetra", "qKAMA", "qGradientEMA", "qLowPassEMA")
 adaptation_methods <- c("abr", "bola", "elastic", "bba", "quetra" )
 
 # Read input file
@@ -214,7 +214,7 @@ print(
   )
 
 mean_dt <- aggregate(.~method+bufSize+sample, data=input_data, mean)
-dt <- subset(mean_dt, mean_dt$sample == 't5' & mean_dt$method %in%
+dt <- subset(mean_dt, mean_dt$sample == 'v5' & mean_dt$method %in%
 adaptation_methods)
 pdf("fig7.pdf",width=22, height=12)
 print(
