@@ -42,13 +42,13 @@ BEGIN {
         freqRebuff=0;
         countEmpty=0;
         qoe=0;
-        if(index("'$newtext'","t1")!=0) {ff=594;numSeg=2;Qlevel=4100;  }
-        if(index("'$newtext'","t2")!=0) {ff=654;numSeg=5;Qlevel=4077;  }
-	if(index("'$newtext'","t3")!=0) {ff=654;numSeg=2;Qlevel=4103;  }
-	if(index("'$newtext'","t4")!=0) {ff=594;numSeg=5;Qlevel=4140; }
-	if(index("'$newtext'","t5")!=0) {ff=244;numSeg=4;Qlevel=2116; }
-	if(index("'$newtext'","t6")!=0) {ff=634;numSeg=3;Qlevel=6169; }
-	if(index("'$newtext'","t7")!=0) {ff=653;numSeg=1.933;Qlevel=3413; }
+        if(index("'$newtext'","v1")!=0) {ff=594;numSeg=2;Qlevel=4100;  }
+        if(index("'$newtext'","v2")!=0) {ff=654;numSeg=5;Qlevel=4077;  }
+	if(index("'$newtext'","v3")!=0) {ff=654;numSeg=2;Qlevel=4103;  }
+	if(index("'$newtext'","v4")!=0) {ff=594;numSeg=5;Qlevel=4140; }
+	if(index("'$newtext'","v5")!=0) {ff=244;numSeg=4;Qlevel=2116; }
+	if(index("'$newtext'","v6")!=0) {ff=634;numSeg=3;Qlevel=6169; }
+	if(index("'$newtext'","v7")!=0) {ff=653;numSeg=1.933;Qlevel=3413; }
          segmentCount=ff/numSeg; 
 
         }
@@ -106,6 +106,7 @@ END{
 		bufSize=Bf
 	}
 
+        
 	print "'$newtext'" , "startStall Time", startStall, "Calculate_STall Time", Be, "Inefficiency" , (eff/countIneff), "Total Time", $1, "Average bitrate", "'$AvgR'", "quality change", '$ChangeR', "Number_of_stalls", countEmpty, "Avg_Stall_Duration", avgStall, "Overflow_Duration", Overflow, "Num_of_Overflow" ,OverflowCount, "Bf", Bf, "MaxR", Qlevel, "MagChangeR", '$MagChangeR', "qoe", qoe,"bufSize",bufSize, "r",(countIneff*'$AvgR'), "segmentCount", segmentCount  
 
 	} ' $newtext >> result/$opfile
