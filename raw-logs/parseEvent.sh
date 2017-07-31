@@ -7,7 +7,7 @@ else
 fi
 
 
-mkdir RESULT >/dev/null 2>&1
+mkdir result >/dev/null 2>&1
 eventDir=${opfile%.*}
 mkdir graph/$eventDir >/dev/null 2>&1
 for text in 30-60/*.log 120/*.log 240/*.log ; do 
