@@ -16,7 +16,7 @@ Here are the directories and their content:
 
 # How to Parse the Browser Logs and Extract Information
 
-Run following scripts to parse  the browser logs:
+Run the following scripts to parse  the browser logs:
 
 -`raw-logs/parseEvent.sh`: The script takes output filename output as command line argument. It parse the raw browser log files to create time-event csv file (e.g., event-p1-v1-abr.csv) in the form of  `timeStamp,repIndex,videoBitrate,bufferLength,throughput,event,bufferCapacity` inside `event-<buffer capacity>` (e.g., event-120) directory. `raw-logs/parseEvent.shparseEvent.sh` calls `raw-logs/evalEvent.sh` and `raw-logs/csvCreate.sh` to extract the information from time-event csv files and create <output>.csv file in the form of `profile,sample,method,bitrate,change,ineff,stall,numStall,avgStall,overflow,numOverflow,qoe,bufSize` for all buffer capacities in the result directory.
 
