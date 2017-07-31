@@ -1,8 +1,8 @@
-This repository / folder contains the data and scripts used to produce the figures and results from the paper:
+This repository / directory contains the data and scripts used to produce the figures and results from the paper:
 
 Praveen Yadav, Arash Shafiei, Wei Tsang Ooi, **QUETRA: A Queuing Theory Approach to DASH Rate Adaptation**, In Proceedings of ACM Multimedia 2017, Mountain View, CA, 23-27 October, 2017.
 
-Here are the folders and their content:
+Here are the directories and their content:
 
 - `raw-logs/`: Directory containg raw log files from web browser for different buffer capacity in the correponding sub-directory and script for extracting the results. Log files naming convention : `<network profile>-<sample>-<algorithm>.log` (e.g., `p1-v4-bba.log`). Please note that buffer capacity is hard coded into logs.
 
@@ -12,7 +12,7 @@ Here are the folders and their content:
 
 ## Browser Logs Extraction
 
-- `raw-logs/parseEvent.sh`: Takes name of the "output" file as command line argument. Parse the raw browser log files from current directory into time-event csv file. It also calls `evalEvent.sh` and `csvCreate.sh` to extract the informatin from time-event csv files and create "output file name".csv file in `result` directory. The time-event csv file are located inside `event-<buffer capacity>` (e.g., `event-120`) directory.   
+- `raw-logs/parseEvent.sh`: Takes output filename `output` as command line argument. Parse the raw browser log files from current directory and create time-event csv file inside `event-<buffer capacity>` (e.g., `event-120`) directory.  After that, it calls `evalEvent.sh` and `csvCreate.sh` to extract the informatin from time-event csv files and create `<output>.csv` file in `result` directory.
 
 ## R Scripts
 
@@ -34,7 +34,7 @@ Here are the folders and their content:
 * Implementation code for QUETRA, BBA, and ELASTIC are available in `code` directory. 
 * The rate adaptations algorithms above are implementated for `Dash.js` v2.1.1 but can be adopted in different version of `Dash.js`  
 * The default variable provided by `Dash.js` are kept intact in the three rate adaptation algorithms above.
-* To integrate these rate adaptation algorithms into `Dash.js`, you can follow the same structure as how `BolaRule.js` is integrated into `Dash.js` inside the folder `dash.js/src/streaming/rules/abr/`
+* To integrate these rate adaptation algorithms into `Dash.js`, you can follow the same structure as how `BolaRule.js` is integrated into `Dash.js` inside the directory `dash.js/src/streaming/rules/abr/`
 * Buffer capacity can be changed in `MediaPlayerModel.js` file located at `dash.js/src/streaming/models/` by changing the value of
     - `BUFFER_TIME_AT_TOP_QUALITY_LONG_FORM` (when content is more than 10 minutes), 
     - `BUFFER_TO_KEEP` (when content is less than 10 minutes)
