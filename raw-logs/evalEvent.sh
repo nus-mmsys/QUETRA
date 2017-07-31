@@ -108,7 +108,7 @@ END{
 
 	print "'$newtext'" , "startStall Time", startStall, "Calculate_STall Time", Be, "Inefficiency" , (eff/countIneff), "Total Time", $1, "Average bitrate", "'$AvgR'", "quality change", '$ChangeR', "Number_of_stalls", countEmpty, "Avg_Stall_Duration", avgStall, "Overflow_Duration", Overflow, "Num_of_Overflow" ,OverflowCount, "Bf", Bf, "MaxR", Qlevel, "MagChangeR", '$MagChangeR', "qoe", qoe,"bufSize",bufSize, "r",(countIneff*'$AvgR'), "segmentCount", segmentCount  
 
-	} ' $newtext >> RESULT/$opfile
+	} ' $newtext >> result/$opfile
 
 
  
