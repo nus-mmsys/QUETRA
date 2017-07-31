@@ -55,7 +55,7 @@ for text in 30-60/*.log 120/*.log 240/*.log ; do
         rm *.tmp
         rm *.bak
 done
-./csvCreate.sh RESULT/$opfile
+./csvCreate.sh result/$opfile
 
 
 
