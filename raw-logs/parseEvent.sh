@@ -59,4 +59,4 @@ done
 
 
 
-echo "check RESULT and event directory for output"
+echo "check result and event directory for output"
