@@ -2,6 +2,14 @@ This repository / directory contains the data and scripts used to produce the fi
 
 Praveen Yadav, Arash Shafiei, Wei Tsang Ooi, **QUETRA: A Queuing Theory Approach to DASH Rate Adaptation**, In Proceedings of ACM Multimedia 2017, Mountain View, CA, 23-27 October, 2017.
 
+# Content
+
+# How to Plot Figures in the Paper
+
+# How to Integrate with Dash.js
+
+# How to Parse the Browser Logs
+
 Here are the directories and their content:
 
 - `raw-logs/`: Directory containg raw log files from web browser for different buffer capacity in the correponding sub-directory and script for extracting the results. Log files naming convention : `<network profile>-<sample>-<algorithm>.log` (e.g., `p1-v4-bba.log`). Please note that buffer capacity is hard coded into logs.
