@@ -108,8 +108,10 @@ The rate adaptation methods are implemented for v2.1.1 but can be adopted for an
    - Add following code in the `execute` function of the rate adaptation logic file to log buffer capacity:
    
            ```
-           let mediaPlayerModel = MediaPlayerModel(context).getInstance();
-           let duration, bufferMax;
+           let mediaPlayerModel = MediaPlayerModel(context).getInstance(),
+           streamInfo = rulesContext.getStreamInfo(),       
+           duration = streamInfo.manifestInfo.duration,
+           bufferMax;
            
            if (duration >= mediaPlayerModel.getLongFormContentDurationThreshold()) {
               bufferMax = mediaPlayerModel.getBufferTimeAtTopQualityLongForm();
