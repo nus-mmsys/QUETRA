@@ -33,7 +33,7 @@ Run the following R scripts to generate the figures:
     * Figure 8: Duration of buffer full for different methods
     * Figure 9: (X,Y)-plot of changes in representation versus bitrate for different throughput prediction methods
 
-- `plot/plotCombinedBufferOcuupancy.r`: The script takes three event files as command line input and plots a graph with their buffer occupancy on the same scale. The graph corresponds to Figure 2 (Example of a case where buffer occupancy in QUETRA converges to K/2) in the paper.
+- `plot/plotCombinedBufferOcuupancy.r`: The script takes three event files as command line input and plots a graph with their buffer occupancy on the same scale. If the event file for profile 2, sample 1 for quetra (i.e., event-p2-v1-quetra.csv) for different buffer capacities is given to the script, the graph will correspond to Figure 2 (Example of a case where buffer occupancy in QUETRA converges to K/2) in the paper.
 
 
 
