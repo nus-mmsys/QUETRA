@@ -83,8 +83,8 @@ The rate adaptation methods are implemented for v2.1.1 but can be adopted for an
     - `BUFFER_TIME_AT_TOP_QUALITY_LONG_FORM` (when content is more than 10 minutes),
     - `BUFFER_TO_KEEP` (when content is less than 10 minutes)
 - change `RICH_BUFFER_THRESHOLD`, `BUFFER_PRUNING_INTERVAL`, `DEFAULT_MIN_BUFFER_TIME_FAST_SWITCH`, `BUFFER_TIME_AT_TOP_QUALITY` by setting them equal to buffer capacity, as they are not applicable to ELASTIC, BBA, and QUETRA.
-- To log the events into browser log, add the following lines into `main.js` in `dash.js/samples/dash-if-reference-player/app/`:
-  - Add following code at the end of `getCribbedMetricsFor` function before returing values, inside the file `dash.js/samples/dash-if-reference-player/app/main.js`:
+- To log the events into browser log, add the following lines of code:
+  - Add following code at the end of `getCribbedMetricsFor` function before returing values (line 278), inside the file `dash.js/samples/dash-if-reference-player/app/main.js`:
   
            ```
            let lastRequest = dashMetrics.getCurrentHttpRequest(metrics),
