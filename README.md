@@ -2,6 +2,8 @@ This repository/directory contains the data and scripts used to produce the figu
 
 Praveen Kumar Yadav, Arash Shafiei, Wei Tsang Ooi, **QUETRA: A Queuing Theory Approach to DASH Rate Adaptation**, In Proceedings of ACM Multimedia 2017, Mountain View, CA, 23-27 October, 2017.
 
+The git repository can be found at https://github.com/nus-mmsys/QUETRA
+
 # Content
 
 Here are the directories and their content:
