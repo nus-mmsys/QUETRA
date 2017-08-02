@@ -6,16 +6,16 @@ Praveen Kumar Yadav, Arash Shafiei, Wei Tsang Ooi, **QUETRA: A Queuing Theory Ap
 
 Here are the directories and their content:
 
--`raw-logs/`: Directory containing raw log files from the web browser for different buffer capacity in the corresponding sub-directory (e.g., `raw-logs/120` contains the log files from experiments with buffer capacity of 120s). Log files naming convention : <network profile>-<sample>-<algorithm>.log (e.g., p1-v4-bba.log).
+- `raw-logs/`: Directory containing raw log files from the web browser for different buffer capacity in the corresponding sub-directory (e.g., `raw-logs/120` contains the log files from experiments with buffer capacity of 120s). Log files naming convention : <network profile>-<sample>-<algorithm>.log (e.g., p1-v4-bba.log).
   - `raw-logs/parseEvent.sh`: main script for extracting the results.  
   - `raw-logs/evalEvent.sh` and `raw-logs/csvCreate.sh`: supporting scripts for `parseEvent.sh`
 
--`code/`: Directory containing rate adaptation algorithms implementation.  Three algorithms are provided:
+- `code/`: Directory containing rate adaptation algorithms implementation.  Three algorithms are provided:
   - `quetra.js`: The QUETRA rate-adaptation algorithm  
   - `bba.js`: The buffer-based algorithm
   - `elastic.js`: the ELASTIC rate-adaptation algorithm
 
--`plots/`: Directory contains an already extracted csv file (`results.csv`) and two R scripts to generate graphs (`plot.r` and `plotCombinedBufferOcuupancy.r`).
+- `plots/`: Directory contains an already extracted csv file (`results.csv`) and two R scripts to generate graphs (`plot.r` and `plotCombinedBufferOcuupancy.r`).
 
 
 
