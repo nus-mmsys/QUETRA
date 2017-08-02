@@ -90,7 +90,7 @@ The rate adaptation methods are implemented for v2.1.1 but can be adopted for an
 - To log the events into browser log, add the following lines of code:
   - Add following code at the end of `getCribbedMetricsFor` function before returning values (line 278), inside the file `dash.js/samples/dash-if-reference-player/app/main.js`:
 
-           ```
+```js  
            let lastRequest = dashMetrics.getCurrentHttpRequest(metrics),
            p_downloadTime = 1,
            lastRequestThroughput = 0,
@@ -106,12 +106,12 @@ The rate adaptation methods are implemented for v2.1.1 but can be adopted for an
            if(type == "video"){
              console.log("@@@@:" + (bitrateIndexValue + 1) + " " + new Date().getTime() + " videoBitrate= " + bandwidthValue + " buffLen= " + bufferLengthValue + " downloadrate= " + lastRequestThroughput + "buffer level" + bufferLevel );
            }
-           ```
+```
 
 
    - Add following code in the `execute` function of the rate adaptation logic file to log buffer capacity:
 
-           ```
+```js
            let mediaPlayerModel = MediaPlayerModel(context).getInstance(),
            streamInfo = rulesContext.getStreamInfo(),       
            duration = streamInfo.manifestInfo.duration,
@@ -125,7 +125,7 @@ The rate adaptation methods are implemented for v2.1.1 but can be adopted for an
            }
 
            log('<---BufferCapacity---> ' + bufferMax);
-           ```
+```
 
 
 Note that the default variable provided by `Dash.js` are kept intact in the three rate adaptation algorithms above.
